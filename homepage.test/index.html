@@ -1,32 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Pro-Fit Bakehouse - High Protein. Low Sugar. Real Bread. Artisan bakery crafting healthy, delicious breads and pastries.">
+  <meta name="description"
+    content="Pro-Fit Bakehouse - High Protein. Low Sugar. Real Bread. Artisan bakery crafting healthy, delicious breads and pastries.">
   <meta name="keywords" content="bakery, high protein bread, low sugar, healthy pastries, artisan bread">
   <title>Pro-Fit Bakehouse | High Protein. Low Sugar. Real Bread.</title>
-  
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet">
+
   <!-- Styles -->
   <link rel="stylesheet" href="index.css">
 </head>
+
 <body>
-  
+
   <!-- Navigation -->
   <nav class="navbar" id="navbar">
     <a href="#home" class="navbar-logo">
       <img src="image/Page 1/logo.png" alt="Pro-Fit Bakehouse Logo">
     </a>
-    
+
     <ul class="nav-links" id="navLinks">
       <li>
         <a href="#home" class="nav-link active">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
             <polyline points="9 22 9 12 15 12 15 22"></polyline>
           </svg>
@@ -35,7 +41,8 @@
       </li>
       <li>
         <a href="#products" class="nav-link">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
             <path d="M3 3h18v18H3zM21 9H3M21 15H3M12 3v18"></path>
           </svg>
           Menus
@@ -43,7 +50,8 @@
       </li>
       <li>
         <a href="#about" class="nav-link">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"></circle>
             <line x1="12" y1="16" x2="12" y2="12"></line>
             <line x1="12" y1="8" x2="12.01" y2="8"></line>
@@ -53,16 +61,30 @@
       </li>
       <li>
         <a href="#contact" class="nav-link">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
             <circle cx="12" cy="10" r="3"></circle>
           </svg>
           Contact
         </a>
       </li>
+      <li>
+        <button class="nav-cart-btn" id="cartToggle" aria-label="Shopping Cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span class="cart-count" id="cartCount">0</span>
+          Cart
+        </button>
+      </li>
       <li class="nav-cta">
         <a href="#order" class="btn btn-primary">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
             <circle cx="9" cy="21" r="1"></circle>
             <circle cx="20" cy="21" r="1"></circle>
             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
@@ -71,7 +93,7 @@
         </a>
       </li>
     </ul>
-    
+
     <div class="mobile-toggle" id="mobileToggle">
       <span></span>
       <span></span>
@@ -95,9 +117,8 @@
         <div class="carousel-overlay"></div>
       </div>
     </div>
-    
+
     <div class="hero-content">
-      <img src="image/Page 1/logo.png" alt="Pro-Fit Bakehouse" class="hero-logo">
       <h1 class="hero-title">Fuel Your Day, The Delicious Way</h1>
       <p class="hero-tagline">
         <span>High Protein.</span> <span>Low Sugar.</span> <span>Real Bread.</span>
@@ -107,7 +128,7 @@
         <a href="#about" class="btn btn-white">Our Story</a>
       </div>
     </div>
-    
+
     <div class="carousel-dots">
       <button class="carousel-dot active" data-slide="0" aria-label="Slide 1"></button>
       <button class="carousel-dot" data-slide="1" aria-label="Slide 2"></button>
@@ -121,20 +142,23 @@
       <h2>Our Signature Delights</h2>
       <p class="section-subtitle">Handcrafted with love, powered by protein, sweetened by nature</p>
     </div>
-    
+
     <div class="products-grid">
-      <div class="product-card reveal">
+      <div class="product-card reveal" data-product-id="1" data-product-name="Artisan Protein Bread"
+        data-product-price="8.99" data-product-image="image/Page 2/bread sku alternative.jpg">
         <div class="product-image">
           <img src="image/Page 2/bread sku alternative.jpg" alt="Artisan Protein Bread">
           <span class="product-badge">Best Seller</span>
         </div>
         <div class="product-content">
           <h3 class="product-title">Artisan Protein Bread</h3>
-          <p class="product-description">Handcrafted sourdough enriched with plant proteins. Perfect for your healthy lifestyle.</p>
+          <p class="product-description">Handcrafted sourdough enriched with plant proteins. Perfect for your healthy
+            lifestyle.</p>
           <div class="product-footer">
             <span class="product-price">$8.99</span>
             <button class="product-action" aria-label="Add to cart">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
                 <line x1="12" y1="5" x2="12" y2="19"></line>
                 <line x1="5" y1="12" x2="19" y2="12"></line>
               </svg>
@@ -142,8 +166,9 @@
           </div>
         </div>
       </div>
-      
-      <div class="product-card reveal">
+
+      <div class="product-card reveal" data-product-id="2" data-product-name="Pistachio Protein Shake"
+        data-product-price="6.49" data-product-image="image/Page 2/drink sku without straws .jpeg">
         <div class="product-image">
           <img src="image/Page 2/drink sku without straws .jpeg" alt="Pistachio Protein Shake">
           <span class="product-badge">New</span>
@@ -154,7 +179,8 @@
           <div class="product-footer">
             <span class="product-price">$6.49</span>
             <button class="product-action" aria-label="Add to cart">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
                 <line x1="12" y1="5" x2="12" y2="19"></line>
                 <line x1="5" y1="12" x2="19" y2="12"></line>
               </svg>
@@ -162,19 +188,22 @@
           </div>
         </div>
       </div>
-      
-      <div class="product-card reveal">
+
+      <div class="product-card reveal" data-product-id="3" data-product-name="Portuguese Egg Tarts"
+        data-product-price="4.99" data-product-image="image/Page 2/egg tart alternertive sku without logo .png">
         <div class="product-image">
           <img src="image/Page 2/egg tart alternertive sku without logo .png" alt="Portuguese Egg Tarts">
           <span class="product-badge">Popular</span>
         </div>
         <div class="product-content">
           <h3 class="product-title">Portuguese Egg Tarts</h3>
-          <p class="product-description">Golden, flaky perfection with reduced sugar. Guilt-free indulgence in every bite.</p>
+          <p class="product-description">Golden, flaky perfection with reduced sugar. Guilt-free indulgence in every
+            bite.</p>
           <div class="product-footer">
             <span class="product-price">$4.99</span>
             <button class="product-action" aria-label="Add to cart">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
                 <line x1="12" y1="5" x2="12" y2="19"></line>
                 <line x1="5" y1="12" x2="19" y2="12"></line>
               </svg>
@@ -195,9 +224,9 @@
         <span class="about-label">Our Story</span>
         <h2 class="about-title">Where Fitness Meets Flavor</h2>
         <p class="about-text">
-          Born from a passion for healthy living and a love for artisan baking, Pro-Fit Bakehouse 
-          reimagines what baked goods can be. We believe you shouldn't have to choose between 
-          delicious and nutritious — so we created a place where every bite fuels your body 
+          Born from a passion for healthy living and a love for artisan baking, Pro-Fit Bakehouse
+          reimagines what baked goods can be. We believe you shouldn't have to choose between
+          delicious and nutritious — so we created a place where every bite fuels your body
           and delights your taste buds.
         </p>
         <div class="about-features">
@@ -248,9 +277,10 @@
   <section class="menu-highlights" id="menu-highlights">
     <div class="section-title reveal">
       <h2>Explore Our Menu</h2>
-      <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">Something delicious for every moment of your day</p>
+      <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">Something delicious for every moment of your day
+      </p>
     </div>
-    
+
     <div class="menu-grid">
       <div class="menu-item reveal">
         <div class="menu-icon">🍞</div>
@@ -281,7 +311,7 @@
       <h2>Get In Touch</h2>
       <p class="section-subtitle">We'd love to hear from you</p>
     </div>
-    
+
     <div class="contact-container">
       <div class="contact-info reveal">
         <h3>Visit Us</h3>
@@ -312,7 +342,9 @@
         <div class="contact-item">
           <div class="contact-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+              </path>
             </svg>
           </div>
           <div class="contact-text">
@@ -321,7 +353,7 @@
           </div>
         </div>
       </div>
-      
+
       <form class="contact-form reveal" id="contactForm">
         <div class="form-group">
           <label for="name">Your Name</label>
@@ -341,14 +373,17 @@
   </section>
 
   <!-- Order CTA Banner -->
-  <section class="order-banner" id="order" style="background: linear-gradient(135deg, #E8A317 0%, #D4920F 100%); padding: 4rem 2rem; text-align: center;">
+  <section class="order-banner" id="order"
+    style="background: linear-gradient(135deg, #E8A317 0%, #D4920F 100%); padding: 4rem 2rem; text-align: center;">
     <div class="reveal">
       <h2 style="color: white; margin-bottom: 1rem;">Ready to Fuel Your Day?</h2>
-      <p style="color: rgba(255,255,255,0.9); font-size: 1.2rem; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+      <p
+        style="color: rgba(255,255,255,0.9); font-size: 1.2rem; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
         Order online for pickup or delivery. Fresh, healthy, delicious — straight to you.
       </p>
       <a href="#" class="btn" style="background: white; color: #E8A317; font-size: 1.1rem; padding: 1rem 2.5rem;">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+          style="margin-right: 8px;">
           <circle cx="9" cy="21" r="1"></circle>
           <circle cx="20" cy="21" r="1"></circle>
           <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
@@ -364,11 +399,11 @@
       <div class="footer-brand">
         <img src="image/Page 1/logo.png" alt="Pro-Fit Bakehouse" class="footer-logo">
         <p class="footer-tagline">
-          Where fitness meets flavor. Crafting high-protein, low-sugar baked goods 
+          Where fitness meets flavor. Crafting high-protein, low-sugar baked goods
           that fuel your body and delight your taste buds.
         </p>
       </div>
-      
+
       <div class="footer-section">
         <h4>Quick Links</h4>
         <ul class="footer-links">
@@ -378,7 +413,7 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
-      
+
       <div class="footer-section">
         <h4>Popular</h4>
         <ul class="footer-links">
@@ -388,7 +423,7 @@
           <li><a href="#">Croissants</a></li>
         </ul>
       </div>
-      
+
       <div class="footer-section">
         <h4>Follow Us</h4>
         <div class="social-links">
@@ -406,19 +441,83 @@
           </a>
           <a href="#" class="social-link" aria-label="Twitter">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+              <path
+                d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+              </path>
             </svg>
           </a>
         </div>
       </div>
     </div>
-    
+
+    <!-- Team Section -->
+    <div class="team-section">
+      <h4>Our Team</h4>
+      <div class="team-grid">
+        <div class="team-member">
+          <span class="member-name">Ke Linyao</span>
+          <span class="member-id">25407694</span>
+          <span class="member-role">Project Manager</span>
+        </div>
+        <div class="team-member">
+          <span class="member-name">Xiao Manyi</span>
+          <span class="member-id">25447416</span>
+          <span class="member-role">Analyst</span>
+        </div>
+        <div class="team-member">
+          <span class="member-name">Qin Tian</span>
+          <span class="member-id">25409182</span>
+          <span class="member-role">Developer</span>
+        </div>
+        <div class="team-member">
+          <span class="member-name">Huo Weijia</span>
+          <span class="member-id">25407651</span>
+          <span class="member-role">Developer</span>
+        </div>
+        <div class="team-member">
+          <span class="member-name">Zeng Yongyi</span>
+          <span class="member-id">25419811</span>
+          <span class="member-role">Tester</span>
+        </div>
+        <div class="team-member">
+          <span class="member-name">Rao Jianan</span>
+          <span class="member-id">25469606</span>
+          <span class="member-role">Tester</span>
+        </div>
+      </div>
+    </div>
+
     <div class="footer-bottom">
       <p>&copy; 2024 Pro-Fit Bakehouse. All rights reserved. | Made with ❤️ and protein</p>
     </div>
   </footer>
 
+  <!-- Floating Cart Widget -->
+  <div class="cart-widget" id="cartWidget">
+    <div class="cart-header">
+      <h3>Your Cart</h3>
+      <button class="cart-close" id="cartClose" aria-label="Close cart">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <p class="cart-empty">Your cart is empty</p>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total:</span>
+        <span id="cartTotal">$0.00</span>
+      </div>
+      <button class="btn btn-primary cart-checkout">Checkout</button>
+    </div>
+  </div>
+  <div class="cart-overlay" id="cartOverlay"></div>
+
   <!-- JavaScript -->
   <script src="script.js"></script>
 </body>
+
 </html>
