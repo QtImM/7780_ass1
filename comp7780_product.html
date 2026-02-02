@@ -2,27 +2,455 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!--    Comp7780 
 	Author: Hans Yip
 	Date:  1/8/2019
 -->
-	<title>HTML5 Template</title>
+	<title>Product Modal</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Inter', sans-serif;
+			background: transparent;
+		}
+
+		/* Modal Styles */
+		.modal-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.5);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			z-index: 1000;
+			display: none;
+			padding: 2rem 0;
+			overflow-y: auto;
+		}
+
+		.modal-overlay.active {
+			display: flex;
+		}
+
+		.modal-content {
+			background: white;
+			border-radius: 20px;
+			width: 90%;
+			max-width: 500px;
+			padding: 2rem;
+			box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+			position: relative;
+			animation: slideUp 0.3s ease-out;
+			border: 2px solid #8B5A2B;
+			margin: auto;
+		}
+
+		@keyframes slideUp {
+			from {
+				transform: translateY(30px);
+				opacity: 0;
+			}
+			to {
+				transform: translateY(0);
+				opacity: 1;
+			}
+		}
+
+		.modal-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 1.5rem;
+		}
+
+		.modal-title {
+			color: #8B5A2B;
+			font-size: 1.8rem;
+			font-weight: 700;
+			border: 3px solid #8B5A2B;
+			padding: 0.5rem 1rem;
+			border-radius: 6px;
+		}
+
+		.modal-close {
+			background: none;
+			border: 2px solid #8B5A2B;
+			color: #8B5A2B;
+			font-size: 1.5rem;
+			cursor: pointer;
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: all 0.3s ease;
+		}
+
+		.modal-close:hover {
+			background: rgba(139, 90, 43, 0.1);
+			transform: scale(1.1);
+		}
+
+		.modal-body {
+			color: #333;
+		}
+
+		.product-info {
+			margin-bottom: 2rem;
+		}
+
+		.product-price {
+			font-size: 1.3rem;
+			font-weight: 600;
+			margin-bottom: 1rem;
+			color: #8B5A2B;
+		}
+
+		.product-description {
+			font-size: 0.9rem;
+			line-height: 1.6;
+			margin-bottom: 0.5rem;
+			opacity: 0.8;
+			color: #555;
+		}
+
+		.product-allergens {
+			font-size: 0.85rem;
+			margin-top: 1rem;
+			padding-top: 1rem;
+			border-top: 1px solid rgba(0, 0, 0, 0.1);
+			font-style: italic;
+			color: #666;
+		}
+
+		.option-section {
+			margin-bottom: 2rem;
+		}
+
+		.option-title {
+			font-size: 1.1rem;
+			font-weight: 600;
+			margin-bottom: 1rem;
+			color: #8B5A2B;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.option-tag {
+			background: rgba(139, 90, 43, 0.1);
+			padding: 0.3rem 0.8rem;
+			border-radius: 20px;
+			font-size: 0.8rem;
+			font-weight: 500;
+			color: #8B5A2B;
+		}
+
+		.option-list {
+			display: flex;
+			flex-direction: column;
+			gap: 0.8rem;
+		}
+
+		.option-item {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+		}
+
+		.option-item input[type="radio"],
+		.option-item input[type="checkbox"] {
+			width: 18px;
+			height: 18px;
+			cursor: pointer;
+			accent-color: #8B5A2B;
+		}
+
+		.option-item label {
+			cursor: pointer;
+			font-size: 0.95rem;
+			flex: 1;
+			color: #333;
+		}
+
+		.quantity-section {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+			margin-bottom: 1.5rem;
+		}
+
+		.quantity-label {
+			font-weight: 600;
+			color: #333;
+		}
+
+		.quantity-controls {
+			display: flex;
+			align-items: center;
+			border: 2px solid #8B5A2B;
+			border-radius: 6px;
+			background: rgba(139, 90, 43, 0.05);
+		}
+
+		.quantity-btn {
+			background: none;
+			border: none;
+			color: #8B5A2B;
+			font-size: 1.2rem;
+			padding: 0.5rem 0.8rem;
+			cursor: pointer;
+			transition: all 0.2s ease;
+		}
+
+		.quantity-btn:hover {
+			background: rgba(139, 90, 43, 0.1);
+		}
+
+		.quantity-input {
+			background: none;
+			border: none;
+			color: #333;
+			text-align: center;
+			width: 40px;
+			font-size: 1rem;
+			font-weight: 600;
+		}
+
+		.quantity-input::-webkit-outer-spin-button,
+		.quantity-input::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+
+		.modal-footer {
+			display: flex;
+			gap: 1rem;
+			align-items: center;
+		}
+
+		.btn-close {
+			background: none;
+			border: 2px solid #8B5A2B;
+			color: #8B5A2B;
+			padding: 0.8rem 1.5rem;
+			border-radius: 6px;
+			cursor: pointer;
+			font-size: 1rem;
+			font-weight: 600;
+			transition: all 0.3s ease;
+		}
+
+		.btn-close:hover {
+			background: rgba(139, 90, 43, 0.1);
+		}
+
+		.btn-add-order {
+			background: #8B5A2B;
+			color: white;
+			border: none;
+			padding: 0.8rem 1.5rem;
+			border-radius: 6px;
+			cursor: pointer;
+			font-size: 1rem;
+			font-weight: 700;
+			flex: 1;
+			transition: all 0.3s ease;
+		}
+
+		.btn-add-order:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 5px 15px rgba(139, 90, 43, 0.3);
+		}
+
+		.price-display {
+			font-weight: 700;
+			font-size: 1.1rem;
+			color: #8B5A2B;
+		}
+	</style>
 </head>
 <body>
-	<header>
-		<h1>Web Technologies</h1>
-	</header>
+	<!-- Product Modal Overlay -->
+	<div class="modal-overlay" id="productModal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2 class="modal-title" id="productName">Cinnamon Scroll</h2>
+				<button class="modal-close" id="modalClose">&times;</button>
+			</div>
 
-	<section>
-	
-		<h1>HTML 5 Template</h1>
+			<div class="modal-body">
+				<!-- Product Info -->
+				<div class="product-info">
+					<div class="product-price" id="productPrice">CAD$8.75</div>
+					<p class="product-description" id="productDesc">
+						Cinnamon Scroll flour, egg, sugar, milk, butter, yeast, dough improver, cinnamon, cardamom.
+					</p>
+					<p class="product-allergens" id="productAllergens">
+						Allergens: dairy, gluten
+					</p>
+				</div>
 
-		<p>This is the sup <sup>TEXT</sup></p>
+				<!-- Toppings Option -->
+				<div class="option-section">
+					<div class="option-title">
+						Toppings
+						<span class="option-tag">Optional</span>
+					</div>
+					<div class="option-list">
+						<div class="option-item">
+							<input type="radio" id="topping-pistachio" name="toppings" value="Pistachio" checked>
+							<label for="topping-pistachio">Pistachio (default this)</label>
+						</div>
+						<div class="option-item">
+							<input type="radio" id="topping-almond" name="toppings" value="Almond">
+							<label for="topping-almond">Almond</label>
+						</div>
+						<div class="option-item">
+							<input type="radio" id="topping-none" name="toppings" value="None">
+							<label for="topping-none">None</label>
+						</div>
+					</div>
+				</div>
 
-	</section>
+				<!-- Drink Options (Alternative Milk) -->
+				<div class="option-section">
+					<div class="option-title">
+						Alternative Milk
+						<span class="option-tag">Optional</span>
+					</div>
+					<div class="option-list">
+						<div class="option-item">
+							<input type="radio" id="milk-fresh" name="milk" value="Fresh Milk" checked>
+							<label for="milk-fresh">Fresh Milk (default this)</label>
+						</div>
+						<div class="option-item">
+							<input type="radio" id="milk-almond" name="milk" value="Almond Milk">
+							<label for="milk-almond">Almond Milk</label>
+						</div>
+						<div class="option-item">
+							<input type="radio" id="milk-oat" name="milk" value="Oat Milk">
+							<label for="milk-oat">Oat Milk</label>
+						</div>
+					</div>
+				</div>
 
-	<footer>
-		<p>&copy; Copyright 2019 comp7780 class</p>
-	</footer>
+				<!-- Quantity Section -->
+				<div class="quantity-section">
+					<span class="quantity-label">Qty:</span>
+					<div class="quantity-controls">
+						<button class="quantity-btn" id="qtyMinus">−</button>
+						<input type="number" class="quantity-input" id="qtyInput" value="1" min="1">
+						<button class="quantity-btn" id="qtyPlus">+</button>
+					</div>
+				</div>
+
+				<!-- Footer Buttons -->
+				<div class="modal-footer">
+					<button class="btn-close" id="modalCloseBtn">×</button>
+					<button class="btn-add-order" id="addToOrderBtn">
+						Add to order <span id="orderPrice">CAD$8.75</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		// Modal Management
+		const modal = document.getElementById('productModal');
+		const modalClose = document.getElementById('modalClose');
+		const modalCloseBtn = document.getElementById('modalCloseBtn');
+		const qtyInput = document.getElementById('qtyInput');
+		const qtyPlus = document.getElementById('qtyPlus');
+		const qtyMinus = document.getElementById('qtyMinus');
+		const orderPrice = document.getElementById('orderPrice');
+		const addToOrderBtn = document.getElementById('addToOrderBtn');
+
+		let basePrice = 8.75;
+
+		// Quantity Controls
+		qtyPlus.addEventListener('click', () => {
+			qtyInput.value = parseInt(qtyInput.value) + 1;
+			updatePrice();
+		});
+
+		qtyMinus.addEventListener('click', () => {
+			if (parseInt(qtyInput.value) > 1) {
+				qtyInput.value = parseInt(qtyInput.value) - 1;
+				updatePrice();
+			}
+		});
+
+		qtyInput.addEventListener('change', () => {
+			if (qtyInput.value < 1) qtyInput.value = 1;
+			updatePrice();
+		});
+
+		function updatePrice() {
+			const qty = parseInt(qtyInput.value);
+			const total = (basePrice * qty).toFixed(2);
+			orderPrice.textContent = `CAD$${total}`;
+		}
+
+		// Modal Controls
+		modalClose.addEventListener('click', closeModal);
+		modalCloseBtn.addEventListener('click', closeModal);
+
+		function openModal(productData) {
+			if (productData) {
+				document.getElementById('productName').textContent = productData.name;
+				document.getElementById('productPrice').textContent = productData.price;
+				document.getElementById('productDesc').textContent = productData.description;
+				document.getElementById('productAllergens').textContent = productData.allergens;
+				basePrice = parseFloat(productData.priceValue);
+				qtyInput.value = 1;
+				updatePrice();
+			}
+			modal.classList.add('active');
+		}
+
+		function closeModal() {
+			modal.classList.remove('active');
+			// Hide iframe after closing
+			setTimeout(() => {
+				if (window.parent !== window) {
+					window.parent.document.getElementById('productModalFrame').style.display = 'none';
+				}
+			}, 300);
+		}
+
+		addToOrderBtn.addEventListener('click', () => {
+			const selections = {
+				productName: document.getElementById('productName').textContent,
+				productPrice: basePrice,
+				quantity: parseInt(qtyInput.value),
+				totalPrice: (basePrice * parseInt(qtyInput.value)).toFixed(2),
+				toppings: document.querySelector('input[name="toppings"]:checked').value,
+				milk: document.querySelector('input[name="milk"]:checked').value,
+				productImage: 'image/Page 2/drink sku without straws .jpeg'
+			};
+			
+			// Pass to parent window to add to cart
+			if (window.parent !== window) {
+				window.parent.addToCart(selections);
+			}
+			
+			closeModal();
+		});
+
+		// Expose openModal globally
+		window.openProductModal = openModal;
+	</script>
 </body>
 </html>

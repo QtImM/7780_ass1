@@ -152,7 +152,7 @@
           <p class="product-description">Creamy, dreamy, and packed with 25g of protein. Your post-workout reward.</p>
           <div class="product-footer">
             <span class="product-price">$6.49</span>
-            <button class="product-action" aria-label="Add to cart">
+            <button class="product-action drink-action" aria-label="Add to cart" onclick="openDrinkModal()">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                 stroke-linejoin="round">
                 <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -367,6 +367,9 @@
     </div>
   </section>
 
+  <!-- Product Modal Container -->
+  <iframe id="productModalFrame" src="../comp7780_product.html" style="display: none;"></iframe>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="footer-container">
@@ -491,6 +494,141 @@
   <div class="cart-overlay" id="cartOverlay"></div>
 
   <!-- JavaScript -->
+  <script>
+    // Cart Management (synced with script.js cart)
+    function addToCart(product) {
+      // Add to the cart array managed by script.js
+      if (typeof cart !== 'undefined') {
+        // Check if product with same configuration already exists
+        const existingProduct = cart.find(item => 
+          item.productName === product.productName && 
+          item.toppings === product.toppings && 
+          item.milk === product.milk
+        );
+        
+        if (existingProduct) {
+          // If found, increase quantity
+          existingProduct.quantity += product.quantity;
+          existingProduct.totalPrice = (existingProduct.productPrice * existingProduct.quantity).toFixed(2);
+        } else {
+          // If not found, add new product
+          cart.push(product);
+        }
+        
+        // Trigger cart display update
+        updateCartUI();
+        // Automatically open the cart
+        const cartWidget = document.getElementById('cartWidget');
+        const cartOverlay = document.getElementById('cartOverlay');
+        cartWidget.classList.add('open');
+        cartOverlay.classList.add('open');
+      }
+      console.log('Product added to cart:', product);
+    }
+
+    function updateCartUI() {
+      const cartCount = document.getElementById('cartCount');
+      const cartItemsContainer = document.getElementById('cartItems');
+      
+      if (typeof cart === 'undefined') return;
+      
+      // Update cart count
+      cartCount.textContent = cart.length;
+
+      // Update cart items display
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = '<p class="cart-empty">Your cart is empty</p>';
+      } else {
+        let html = '';
+        cart.forEach((item, index) => {
+          html += `
+            <div class="cart-item" style="display: flex; padding: 1rem; border-bottom: 1px solid #eee; gap: 1rem;">
+              <img src="${item.productImage || 'image/Page 2/drink sku without straws .jpeg'}" alt="${item.productName}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">
+              <div style="flex: 1;">
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                  <strong style="font-size: 1rem;">${item.productName}</strong>
+                </div>
+                <div style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;">
+                  <div>Toppings: ${item.toppings}</div>
+                  <div>Milk: ${item.milk}</div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                  <div style="display: flex; align-items: center; gap: 0.5rem; background: #f5f5f5; border-radius: 4px;">
+                    <button onclick="decreaseQty(${index})" style="background: none; border: none; padding: 0.3rem 0.6rem; cursor: pointer; font-size: 1.1rem;">−</button>
+                    <span style="min-width: 30px; text-align: center;">${item.quantity}</span>
+                    <button onclick="increaseQty(${index})" style="background: none; border: none; padding: 0.3rem 0.6rem; cursor: pointer; font-size: 1.1rem;">+</button>
+                  </div>
+                  <span style="color: #8B5A2B; font-weight: 600;">$${item.totalPrice}</span>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+        cartItemsContainer.innerHTML = html;
+      }
+
+      // Update total price
+      const total = cart.reduce((sum, item) => sum + parseFloat(item.totalPrice), 0).toFixed(2);
+      document.getElementById('cartTotal').textContent = '$' + total;
+    }
+
+    function removeFromCart(index) {
+      if (typeof cart !== 'undefined') {
+        cart.splice(index, 1);
+        updateCartUI();
+      }
+    }
+
+    function increaseQty(index) {
+      if (typeof cart !== 'undefined' && cart[index]) {
+        cart[index].quantity += 1;
+        cart[index].totalPrice = (cart[index].productPrice * cart[index].quantity).toFixed(2);
+        updateCartUI();
+      }
+    }
+
+    function decreaseQty(index) {
+      if (typeof cart !== 'undefined' && cart[index]) {
+        if (cart[index].quantity > 1) {
+          cart[index].quantity -= 1;
+          cart[index].totalPrice = (cart[index].productPrice * cart[index].quantity).toFixed(2);
+        } else {
+          // If quantity is 1, remove the product from cart
+          cart.splice(index, 1);
+        }
+        updateCartUI();
+      }
+    }
+
+    // Open Drink Modal Function
+    function openDrinkModal() {
+      const modalFrame = document.getElementById('productModalFrame');
+      const drinkProduct = {
+        name: 'Cinnamon Scroll',
+        price: 'CAD$8.75',
+        priceValue: 8.75,
+        description: 'Cinnamon Scroll flour, egg, sugar, milk, butter, yeast, dough improver, cinnamon, cardamom.',
+        allergens: 'Allergens: dairy, gluten'
+      };
+      
+      // Access iframe content and call openModal
+      try {
+        modalFrame.contentWindow.openProductModal(drinkProduct);
+        // Make sure modal is visible
+        modalFrame.style.display = 'block';
+        modalFrame.style.position = 'fixed';
+        modalFrame.style.top = '0';
+        modalFrame.style.left = '0';
+        modalFrame.style.width = '100%';
+        modalFrame.style.height = '100%';
+        modalFrame.style.border = 'none';
+        modalFrame.style.zIndex = '9999';
+        modalFrame.style.background = 'transparent';
+      } catch (e) {
+        console.error('Error opening modal:', e);
+      }
+    }
+  </script>
   <script src="script.js"></script>
 </body>
 

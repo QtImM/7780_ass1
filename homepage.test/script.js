@@ -298,8 +298,8 @@ function initCart() {
     }
   });
 
-  // Add to cart functionality
-  document.querySelectorAll('.product-action').forEach(button => {
+  // Add to cart functionality - Skip drink items (they use modal)
+  document.querySelectorAll('.product-action:not(.drink-action)').forEach(button => {
     button.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -312,9 +312,13 @@ function initCart() {
 
       addToCart({
         id: productId,
-        name: productName,
-        price: productPrice,
-        image: productImage
+        productName: productName,
+        productPrice: productPrice,
+        productImage: productImage,
+        quantity: 1,
+        totalPrice: productPrice.toFixed(2),
+        toppings: 'None',
+        milk: 'None'
       });
 
       // Button animation
@@ -324,11 +328,6 @@ function initCart() {
       }, 300);
 
       showNotification(`${productName} added to cart!`, 'success');
-
-      // Open cart after adding
-      setTimeout(() => {
-        openCart();
-      }, 500);
     });
   });
 
