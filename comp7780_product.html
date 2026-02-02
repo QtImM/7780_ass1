@@ -7,20 +7,40 @@
 	Author: Hans Yip
 	Date:  1/8/2019
 -->
-	<title>Product Modal</title>
+	<title>Menu | Pro-Fit Bakehouse</title>
+	
+	<!-- Google Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+	<!-- Styles -->
+	<link rel="stylesheet" href="homepage.test/index.css">
+
 	<style>
-		* {
-			margin: 0;
-			padding: 0;
-			box-sizing: border-box;
-		}
-
+		/* Override or additional styles for this page */
 		body {
-			font-family: 'Inter', sans-serif;
-			background: transparent;
+			padding-top: 80px; /* Space for fixed navbar */
 		}
 
-		/* Modal Styles */
+		/* Product 页导航栏文字统一使用 rgb(74, 74, 74) */
+		.navbar .nav-link,
+		.navbar .nav-link.active,
+		.navbar .nav-link:visited {
+			color: rgb(74, 74, 74);
+		}
+
+		.navbar .nav-link:hover {
+			color: rgb(74, 74, 74);
+			opacity: 0.8;
+		}
+
+		.nav-icons .nav-icon-btn svg {
+			color: rgb(74, 74, 74);
+			stroke: rgb(74, 74, 74);
+		}
+		
+		/* Ensure modal styles work */
 		.modal-overlay {
 			position: fixed;
 			top: 0;
@@ -31,7 +51,7 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			z-index: 1000;
+			z-index: 2000; /* Higher than navbar */
 			display: none;
 			padding: 2rem 0;
 			overflow-y: auto;
@@ -54,14 +74,8 @@
 		}
 
 		@keyframes slideUp {
-			from {
-				transform: translateY(30px);
-				opacity: 0;
-			}
-			to {
-				transform: translateY(0);
-				opacity: 1;
-			}
+			from { transform: translateY(30px); opacity: 0; }
+			to { transform: translateY(0); opacity: 1; }
 		}
 
 		.modal-header {
@@ -75,8 +89,7 @@
 			color: #8B5A2B;
 			font-size: 1.8rem;
 			font-weight: 700;
-			padding: 0.5rem 1rem;
-			border-radius: 6px;
+			padding: 0;
 		}
 
 		.modal-close {
@@ -97,14 +110,6 @@
 		.modal-close:hover {
 			background: rgba(139, 90, 43, 0.1);
 			transform: scale(1.1);
-		}
-
-		.modal-body {
-			color: #333;
-		}
-
-		.product-info {
-			margin-bottom: 2rem;
 		}
 
 		.product-price {
@@ -131,10 +136,8 @@
 			color: #666;
 		}
 
-		.option-section {
-			margin-bottom: 2rem;
-		}
-
+		.option-section { margin-bottom: 2rem; }
+		
 		.option-title {
 			font-size: 1.1rem;
 			font-weight: 600;
@@ -188,10 +191,7 @@
 			margin-bottom: 1.5rem;
 		}
 
-		.quantity-label {
-			font-weight: 600;
-			color: #333;
-		}
+		.quantity-label { font-weight: 600; color: #333; }
 
 		.quantity-controls {
 			display: flex;
@@ -211,9 +211,7 @@
 			transition: all 0.2s ease;
 		}
 
-		.quantity-btn:hover {
-			background: rgba(139, 90, 43, 0.1);
-		}
+		.quantity-btn:hover { background: rgba(139, 90, 43, 0.1); }
 
 		.quantity-input {
 			background: none;
@@ -224,7 +222,7 @@
 			font-size: 1rem;
 			font-weight: 600;
 		}
-
+		
 		.quantity-input::-webkit-outer-spin-button,
 		.quantity-input::-webkit-inner-spin-button {
 			-webkit-appearance: none;
@@ -235,22 +233,6 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
-		}
-
-		.btn-close {
-			background: none;
-			border: 2px solid #8B5A2B;
-			color: #8B5A2B;
-			padding: 0.8rem 1.5rem;
-			border-radius: 6px;
-			cursor: pointer;
-			font-size: 1rem;
-			font-weight: 600;
-			transition: all 0.3s ease;
-		}
-
-		.btn-close:hover {
-			background: rgba(139, 90, 43, 0.1);
 		}
 
 		.btn-add-order {
@@ -270,15 +252,223 @@
 			transform: translateY(-2px);
 			box-shadow: 0 5px 15px rgba(139, 90, 43, 0.3);
 		}
-
-		.price-display {
-			font-weight: 700;
-			font-size: 1.1rem;
-			color: #8B5A2B;
-		}
 	</style>
 </head>
 <body>
+
+	<!-- Navigation（与首页结构保持一致） -->
+	<nav class="navbar" id="navbar">
+		<a href="homepage.test/index.html#home" class="navbar-logo">
+			<img src="homepage.test/image/Page 1/logo.png" alt="Pro-Fit Bakehouse Logo">
+		</a>
+
+		<!-- Center Navigation Links -->
+		<ul class="nav-links" id="navLinks">
+			<li>
+				<a href="homepage.test/index.html#home" class="nav-link">Home</a>
+			</li>
+			<li>
+				<a href="homepage.test/index.html#about" class="nav-link">About</a>
+			</li>
+			<li>
+				<a href="homepage.test/index.html#contact" class="nav-link">Contact</a>
+			</li>
+		</ul>
+
+		<!-- Right Side Icons -->
+		<div class="nav-icons">
+			<button class="nav-icon-btn" id="searchToggle" aria-label="Search">
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<circle cx="11" cy="11" r="8"></circle>
+					<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+				</svg>
+			</button>
+			<button class="nav-icon-btn" id="profileToggle" aria-label="Profile">
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+					<circle cx="12" cy="7" r="4"></circle>
+				</svg>
+			</button>
+			<button class="nav-icon-btn nav-cart-btn" id="cartToggle" aria-label="Shopping Cart">
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<circle cx="9" cy="21" r="1"></circle>
+					<circle cx="20" cy="21" r="1"></circle>
+					<path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+				</svg>
+				<span class="cart-count" id="cartCount">0</span>
+			</button>
+		</div>
+
+		<div class="mobile-toggle" id="mobileToggle">
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</nav>
+
+	<!-- Products Section：仅保留 Our Full Menu 作为页面主体 -->
+	<section class="products" id="products" style="padding-top: 2rem;">
+		<div class="section-title">
+			<h2>Our Full Menu</h2>
+			<p class="section-subtitle">Handcrafted with love, powered by protein, sweetened by nature</p>
+		</div>
+
+		<div class="products-grid">
+			<div class="product-card" data-product-id="1" data-product-name="Artisan Protein Bread"
+				data-product-price="8.99" data-product-image="homepage.test/image/Page 2/bread sku alternative.jpg">
+				<div class="product-image">
+					<img src="homepage.test/image/Page 2/bread sku alternative.jpg" alt="Artisan Protein Bread">
+					<span class="product-badge">Best Seller</span>
+				</div>
+				<div class="product-content">
+					<h3 class="product-title">Artisan Protein Bread</h3>
+					<p class="product-description">Handcrafted sourdough enriched with plant proteins. Perfect for your healthy
+						lifestyle.</p>
+					<div class="product-footer">
+						<span class="product-price">$8.99</span>
+						<button class="product-action" aria-label="Add to cart" onclick="addToCartFromCard(this)">
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+								stroke-linejoin="round">
+								<line x1="12" y1="5" x2="12" y2="19"></line>
+								<line x1="5" y1="12" x2="19" y2="12"></line>
+							</svg>
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="product-card" data-product-id="2" data-product-name="Pistachio Protein Shake"
+				data-product-price="6.49" data-product-image="homepage.test/image/Page 2/drink sku without straws .jpeg">
+				<div class="product-image">
+					<img src="homepage.test/image/Page 2/drink sku without straws .jpeg" alt="Pistachio Protein Shake">
+					<span class="product-badge">New</span>
+				</div>
+				<div class="product-content">
+					<h3 class="product-title">Pistachio Protein Shake</h3>
+					<p class="product-description">Creamy, dreamy, and packed with 25g of protein. Your post-workout reward.</p>
+					<div class="product-footer">
+						<span class="product-price">$6.49</span>
+						<button class="product-action drink-action" aria-label="Add to cart" onclick="openProductModal({
+							name: 'Pistachio Protein Shake',
+							price: 'CAD$6.49',
+							priceValue: 6.49,
+							description: 'Creamy, dreamy, and packed with 25g of protein. Your post-workout reward.',
+							allergens: 'Allergens: Tree Nuts, Dairy'
+						})">
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+								stroke-linejoin="round">
+								<line x1="12" y1="5" x2="12" y2="19"></line>
+								<line x1="5" y1="12" x2="19" y2="12"></line>
+							</svg>
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="product-card" data-product-id="3" data-product-name="Portuguese Egg Tarts"
+				data-product-price="4.99" data-product-image="homepage.test/image/Page 2/egg tart alternertive sku without logo .png">
+				<div class="product-image">
+					<img src="homepage.test/image/Page 2/egg tart alternertive sku without logo .png" alt="Portuguese Egg Tarts">
+					<span class="product-badge">Popular</span>
+				</div>
+				<div class="product-content">
+					<h3 class="product-title">Portuguese Egg Tarts</h3>
+					<p class="product-description">Golden, flaky perfection with reduced sugar. Guilt-free indulgence in every
+						bite.</p>
+					<div class="product-footer">
+						<span class="product-price">$4.99</span>
+						<button class="product-action" aria-label="Add to cart" onclick="addToCartFromCard(this)">
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+								stroke-linejoin="round">
+								<line x1="12" y1="5" x2="12" y2="19"></line>
+								<line x1="5" y1="12" x2="19" y2="12"></line>
+							</svg>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer class="footer">
+		<div class="footer-container">
+			<div class="footer-brand">
+				<img src="homepage.test/image/Page 1/logo.png" alt="Pro-Fit Bakehouse" class="footer-logo">
+				<p class="footer-tagline">
+					Where fitness meets flavor. Crafting high-protein, low-sugar baked goods
+					that fuel your body and delight your taste buds.
+				</p>
+			</div>
+			<div class="footer-section">
+				<h4>Quick Links</h4>
+				<ul class="footer-links">
+					<li><a href="homepage.test/index.html">Home</a></li>
+					<li><a href="#">Menus</a></li>
+					<li><a href="homepage.test/index.html#about">About Us</a></li>
+					<li><a href="homepage.test/index.html#contact">Contact</a></li>
+				</ul>
+			</div>
+			<div class="footer-section">
+				<h4>Popular</h4>
+				<ul class="footer-links">
+					<li><a href="#">Protein Bread</a></li>
+					<li><a href="#">Egg Tarts</a></li>
+					<li><a href="#">Protein Shakes</a></li>
+				</ul>
+			</div>
+			<div class="footer-section">
+				<h4>Follow Us</h4>
+				<div class="social-links">
+					<a href="#" class="social-link" aria-label="Instagram">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+							<path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+							<line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+						</svg>
+					</a>
+					<a href="#" class="social-link" aria-label="Facebook">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+						</svg>
+					</a>
+					<a href="#" class="social-link" aria-label="Twitter">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+						</svg>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<p>&copy; 2024 Pro-Fit Bakehouse. All rights reserved. | Made with ❤️ and protein</p>
+		</div>
+	</footer>
+
+	<!-- Floating Cart Widget -->
+	<div class="cart-widget" id="cartWidget">
+		<div class="cart-header">
+			<h3>Your Cart</h3>
+			<button class="cart-close" id="cartClose" aria-label="Close cart">
+				<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+					<line x1="18" y1="6" x2="6" y2="18"></line>
+					<line x1="6" y1="6" x2="18" y2="18"></line>
+				</svg>
+			</button>
+		</div>
+		<div class="cart-items" id="cartItems">
+			<p class="cart-empty">Your cart is empty</p>
+		</div>
+		<div class="cart-footer">
+			<div class="cart-total">
+				<span>Total:</span>
+				<span id="cartTotal">$0.00</span>
+			</div>
+			<button class="btn btn-primary cart-checkout">Checkout</button>
+		</div>
+	</div>
+	<div class="cart-overlay" id="cartOverlay"></div>
+
 	<!-- Product Modal Overlay -->
 	<div class="modal-overlay" id="productModal">
 		<div class="modal-content">
@@ -345,8 +535,7 @@
 
 				<!-- Quantity Section -->
 				<div class="quantity-section">
-					<span class="quantity-label">Quantity
-:</span>
+					<span class="quantity-label">Quantity:</span>
 					<div class="quantity-controls">
 						<button class="quantity-btn" id="qtyMinus">−</button>
 						<input type="number" class="quantity-input" id="qtyInput" value="1" min="1">
@@ -365,7 +554,150 @@
 	</div>
 
 	<script>
-		// Modal Management
+		// --- Cart Logic (Simplified from index.html) ---
+		let cart = [];
+		const cartWidget = document.getElementById('cartWidget');
+		const cartOverlay = document.getElementById('cartOverlay');
+		const cartToggle = document.getElementById('cartToggle');
+		const cartClose = document.getElementById('cartClose');
+		const cartCount = document.getElementById('cartCount');
+		const cartItemsContainer = document.getElementById('cartItems');
+
+		function addToCart(product) {
+			const existingProduct = cart.find(item => 
+				item.productName === product.productName && 
+				item.toppings === product.toppings && 
+				item.milk === product.milk
+			);
+			
+			if (existingProduct) {
+				existingProduct.quantity += product.quantity;
+				existingProduct.totalPrice = (existingProduct.productPrice * existingProduct.quantity).toFixed(2);
+			} else {
+				cart.push(product);
+			}
+			
+			updateCartUI();
+			openCart();
+			console.log('Product added to cart:', product);
+			showNotification(`${product.productName} added to cart!`, 'success');
+		}
+
+		function updateCartUI() {
+			cartCount.textContent = cart.length;
+			
+			if (cart.length === 0) {
+				cartItemsContainer.innerHTML = '<p class="cart-empty">Your cart is empty</p>';
+			} else {
+				let html = '';
+				cart.forEach((item, index) => {
+					html += `
+						<div class="cart-item" style="display: flex; padding: 1rem; border-bottom: 1px solid #eee; gap: 1rem;">
+							<img src="${item.productImage}" alt="${item.productName}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
+							<div style="flex: 1;">
+								<div style="font-weight: 600;">${item.productName}</div>
+								<div style="font-size: 0.85rem; color: #666;">
+									${item.toppings !== 'None' ? 'Topping: ' + item.toppings : ''}
+									${item.milk !== 'None' ? (item.toppings !== 'None' ? '<br>' : '') + 'Milk: ' + item.milk : ''}
+								</div>
+								<div style="display: flex; justify-content: space-between; margin-top: 0.5rem;">
+									<span>Qty: ${item.quantity}</span>
+									<span style="color: #8B5A2B; font-weight: 600;">$${item.totalPrice}</span>
+								</div>
+							</div>
+						</div>
+					`;
+				});
+				cartItemsContainer.innerHTML = html;
+			}
+			
+			const total = cart.reduce((sum, item) => sum + parseFloat(item.totalPrice), 0).toFixed(2);
+			document.getElementById('cartTotal').textContent = '$' + total;
+		}
+
+		function openCart() {
+			cartWidget.classList.add('open');
+			cartOverlay.classList.add('open');
+		}
+
+		function closeCart() {
+			cartWidget.classList.remove('open');
+			cartOverlay.classList.remove('open');
+		}
+		
+		function showNotification(message, type = 'info') {
+			// Remove existing notifications
+			const existing = document.querySelector('.notification');
+			if (existing) existing.remove();
+
+			// Create notification element
+			const notification = document.createElement('div');
+			notification.className = `notification notification-${type}`;
+			notification.innerHTML = `
+				<span>${message}</span>
+				<button onclick="this.parentElement.remove()" aria-label="Close">&times;</button>
+			`;
+
+			// Add styles
+			notification.style.cssText = `
+				position: fixed;
+				bottom: 30px;
+				left: 30px;
+				padding: 16px 24px;
+				background: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#F44336' : '#8B5A2B'};
+				color: white;
+				border-radius: 12px;
+				box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+				display: flex;
+				align-items: center;
+				gap: 16px;
+				font-size: 0.95rem;
+				z-index: 9999;
+				animation: notificationSlideIn 0.3s ease;
+			`;
+
+			// Add animation keyframes
+			if (!document.getElementById('notification-styles')) {
+				const style = document.createElement('style');
+				style.id = 'notification-styles';
+				style.textContent = `
+				@keyframes notificationSlideIn {
+					from { transform: translateX(-100%); opacity: 0; }
+					to { transform: translateX(0); opacity: 1; }
+				}
+				`;
+				document.head.appendChild(style);
+			}
+
+			document.body.appendChild(notification);
+
+			// Auto remove after 4 seconds
+			setTimeout(() => {
+				notification.style.animation = 'notificationSlideIn 0.3s ease reverse';
+				setTimeout(() => notification.remove(), 300);
+			}, 4000);
+		}
+
+		cartToggle.addEventListener('click', openCart);
+		cartClose.addEventListener('click', closeCart);
+		cartOverlay.addEventListener('click', closeCart);
+
+		// Helper for adding simple products
+		function addToCartFromCard(button) {
+			const card = button.closest('.product-card');
+			addToCart({
+				id: card.dataset.productId,
+				productName: card.dataset.productName,
+				productPrice: parseFloat(card.dataset.productPrice),
+				productImage: card.dataset.productImage,
+				quantity: 1,
+				totalPrice: parseFloat(card.dataset.productPrice).toFixed(2),
+				toppings: 'None',
+				milk: 'None'
+			});
+		}
+
+		// --- Modal Logic ---
 		const modal = document.getElementById('productModal');
 		const modalClose = document.getElementById('modalClose');
 		const qtyInput = document.getElementById('qtyInput');
@@ -376,7 +708,25 @@
 
 		let basePrice = 8.75;
 
-		// Quantity Controls
+		function openProductModal(productData) {
+			if (productData) {
+				document.getElementById('productName').textContent = productData.name;
+				document.getElementById('productPrice').textContent = productData.price;
+				document.getElementById('productDesc').textContent = productData.description;
+				document.getElementById('productAllergens').textContent = productData.allergens;
+				basePrice = parseFloat(productData.priceValue);
+				qtyInput.value = 1;
+				updatePrice();
+			}
+			modal.classList.add('active');
+		}
+
+		function closeModal() {
+			modal.classList.remove('active');
+		}
+
+		modalClose.addEventListener('click', closeModal);
+
 		qtyPlus.addEventListener('click', () => {
 			qtyInput.value = parseInt(qtyInput.value) + 1;
 			updatePrice();
@@ -400,32 +750,6 @@
 			orderPrice.textContent = `CAD$${total}`;
 		}
 
-		// Modal Controls
-		modalClose.addEventListener('click', closeModal);
-
-		function openModal(productData) {
-			if (productData) {
-				document.getElementById('productName').textContent = productData.name;
-				document.getElementById('productPrice').textContent = productData.price;
-				document.getElementById('productDesc').textContent = productData.description;
-				document.getElementById('productAllergens').textContent = productData.allergens;
-				basePrice = parseFloat(productData.priceValue);
-				qtyInput.value = 1;
-				updatePrice();
-			}
-			modal.classList.add('active');
-		}
-
-		function closeModal() {
-			modal.classList.remove('active');
-			// Hide iframe after closing
-			setTimeout(() => {
-				if (window.parent !== window) {
-					window.parent.document.getElementById('productModalFrame').style.display = 'none';
-				}
-			}, 300);
-		}
-
 		addToOrderBtn.addEventListener('click', () => {
 			const selections = {
 				productName: document.getElementById('productName').textContent,
@@ -434,19 +758,15 @@
 				totalPrice: (basePrice * parseInt(qtyInput.value)).toFixed(2),
 				toppings: document.querySelector('input[name="toppings"]:checked').value,
 				milk: document.querySelector('input[name="milk"]:checked').value,
-				productImage: 'image/Page 2/drink sku without straws .jpeg'
+				productImage: 'homepage.test/image/Page 2/drink sku without straws .jpeg'
 			};
 			
-			// Pass to parent window to add to cart
-			if (window.parent !== window) {
-				window.parent.addToCart(selections);
-			}
-			
+			addToCart(selections);
 			closeModal();
 		});
 
-		// Expose openModal globally
-		window.openProductModal = openModal;
+		// Expose for global use if needed
+		window.openProductModal = openProductModal;
 	</script>
 </body>
 </html>
