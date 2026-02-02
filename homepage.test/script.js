@@ -331,22 +331,6 @@ function initCart() {
     });
   });
 
-  // Add item to cart
-  function addToCart(product) {
-    const existingItem = cart.find(item => item.id === product.id);
-
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      cart.push({
-        ...product,
-        quantity: 1
-      });
-    }
-
-    updateCartUI();
-  }
-
   // Update cart quantity
   window.updateQuantity = function (productId, change) {
     const item = cart.find(item => item.id === productId);

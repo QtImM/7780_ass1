@@ -517,11 +517,16 @@
         
         // Trigger cart display update
         updateCartUI();
-        // Automatically open the cart
-        const cartWidget = document.getElementById('cartWidget');
-        const cartOverlay = document.getElementById('cartOverlay');
-        cartWidget.classList.add('open');
-        cartOverlay.classList.add('open');
+        
+        // Automatically open the cart - use setTimeout to ensure DOM is ready
+        setTimeout(() => {
+          const cartWidget = document.getElementById('cartWidget');
+          const cartOverlay = document.getElementById('cartOverlay');
+          if (cartWidget && cartOverlay) {
+            cartWidget.classList.add('open');
+            cartOverlay.classList.add('open');
+          }
+        }, 0);
       }
       console.log('Product added to cart:', product);
     }
@@ -604,11 +609,11 @@
     function openDrinkModal() {
       const modalFrame = document.getElementById('productModalFrame');
       const drinkProduct = {
-        name: 'Cinnamon Scroll',
-        price: 'CAD$8.75',
-        priceValue: 8.75,
-        description: 'Cinnamon Scroll flour, egg, sugar, milk, butter, yeast, dough improver, cinnamon, cardamom.',
-        allergens: 'Allergens: dairy, gluten'
+        name: 'Pistachio Protein Shake',
+        price: 'CAD$6.49',
+        priceValue: 6.49,
+        description: 'Creamy, dreamy, and packed with 25g of protein. Your post-workout reward.',
+        allergens: 'Allergens: Tree Nuts, Dairy'
       };
       
       // Access iframe content and call openModal
