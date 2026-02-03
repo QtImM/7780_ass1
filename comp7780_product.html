@@ -554,8 +554,9 @@
 	</div>
 
 	<script>
-		// --- Cart Logic (Simplified from index.html) ---
-		let cart = [];
+		// --- Cart Logic (synced with index via localStorage) ---
+		const CART_STORAGE_KEY = 'profit_cart';
+		let cart = JSON.parse(localStorage.getItem(CART_STORAGE_KEY) || '[]');
 		const cartWidget = document.getElementById('cartWidget');
 		const cartOverlay = document.getElementById('cartOverlay');
 		const cartToggle = document.getElementById('cartToggle');
@@ -564,45 +565,51 @@
 		const cartItemsContainer = document.getElementById('cartItems');
 
 		function addToCart(product) {
-			const existingProduct = cart.find(item => 
-				item.productName === product.productName && 
-				item.toppings === product.toppings && 
-				item.milk === product.milk
+			const existingProduct = cart.find(item =>
+				item.productName === product.productName &&
+				(item.toppings || 'None') === (product.toppings || 'None') &&
+				(item.milk || 'None') === (product.milk || 'None')
 			);
-			
 			if (existingProduct) {
 				existingProduct.quantity += product.quantity;
 				existingProduct.totalPrice = (existingProduct.productPrice * existingProduct.quantity).toFixed(2);
 			} else {
 				cart.push(product);
 			}
-			
 			updateCartUI();
 			openCart();
-			console.log('Product added to cart:', product);
 			showNotification(`${product.productName} added to cart!`, 'success');
 		}
 
 		function updateCartUI() {
-			cartCount.textContent = cart.length;
-			
+			const totalQty = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+			cartCount.textContent = totalQty;
+			if (totalQty > 0) {
+				cartCount.classList.add('visible');
+			} else {
+				cartCount.classList.remove('visible');
+			}
 			if (cart.length === 0) {
 				cartItemsContainer.innerHTML = '<p class="cart-empty">Your cart is empty</p>';
 			} else {
 				let html = '';
 				cart.forEach((item, index) => {
+					const opts = [];
+					if (item.toppings && item.toppings !== 'None') opts.push('Toppings: ' + item.toppings);
+					if (item.milk && item.milk !== 'None') opts.push('Milk: ' + item.milk);
 					html += `
-						<div class="cart-item" style="display: flex; padding: 1rem; border-bottom: 1px solid #eee; gap: 1rem;">
-							<img src="${item.productImage}" alt="${item.productName}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
-							<div style="flex: 1;">
-								<div style="font-weight: 600;">${item.productName}</div>
-								<div style="font-size: 0.85rem; color: #666;">
-									${item.toppings !== 'None' ? 'Topping: ' + item.toppings : ''}
-									${item.milk !== 'None' ? (item.toppings !== 'None' ? '<br>' : '') + 'Milk: ' + item.milk : ''}
-								</div>
-								<div style="display: flex; justify-content: space-between; margin-top: 0.5rem;">
-									<span>Qty: ${item.quantity}</span>
-									<span style="color: #8B5A2B; font-weight: 600;">$${item.totalPrice}</span>
+						<div class="cart-item">
+							<img src="${item.productImage}" alt="${item.productName}" class="cart-item-image">
+							<div class="cart-item-info">
+								<div class="cart-item-name">${item.productName}</div>
+								${opts.length ? '<div class="cart-item-options" style="font-size:0.85rem;color:#666;margin-bottom:6px;">' + opts.join(' · ') + '</div>' : ''}
+								<div class="cart-item-controls">
+									<div class="cart-item-quantity">
+										<button type="button" class="quantity-btn" onclick="decreaseQty(${index})" aria-label="Decrease">−</button>
+										<span class="quantity-value">${item.quantity}</span>
+										<button type="button" class="quantity-btn" onclick="increaseQty(${index})" aria-label="Increase">+</button>
+									</div>
+									<span class="cart-item-price">$${item.totalPrice}</span>
 								</div>
 							</div>
 						</div>
@@ -610,9 +617,27 @@
 				});
 				cartItemsContainer.innerHTML = html;
 			}
-			
 			const total = cart.reduce((sum, item) => sum + parseFloat(item.totalPrice), 0).toFixed(2);
 			document.getElementById('cartTotal').textContent = '$' + total;
+			try { localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart)); } catch (e) {}
+		}
+
+		function increaseQty(index) {
+			if (cart[index]) {
+				cart[index].quantity += 1;
+				cart[index].totalPrice = (cart[index].productPrice * cart[index].quantity).toFixed(2);
+				updateCartUI();
+			}
+		}
+		function decreaseQty(index) {
+			if (!cart[index]) return;
+			if (cart[index].quantity > 1) {
+				cart[index].quantity -= 1;
+				cart[index].totalPrice = (cart[index].productPrice * cart[index].quantity).toFixed(2);
+			} else {
+				cart.splice(index, 1);
+			}
+			updateCartUI();
 		}
 
 		function openCart() {
@@ -767,6 +792,9 @@
 
 		// Expose for global use if needed
 		window.openProductModal = openProductModal;
+
+		// Sync cart badge and list on load (e.g. when coming from homepage)
+		updateCartUI();
 	</script>
 </body>
 </html>

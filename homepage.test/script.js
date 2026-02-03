@@ -3,8 +3,9 @@
  * Handles carousel, navigation, scroll effects, form interactions, and shopping cart
  */
 
-// Shopping Cart State
-let cart = [];
+// Shopping Cart State (persisted across pages via localStorage)
+const CART_STORAGE_KEY = 'profit_cart';
+let cart = JSON.parse(localStorage.getItem(CART_STORAGE_KEY) || '[]');
 
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize all components
@@ -401,10 +402,11 @@ function initCart() {
         return;
       }
 
-      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const total = cart.reduce((sum, item) => sum + parseFloat(item.totalPrice != null ? item.totalPrice : (item.productPrice * item.quantity)), 0);
       showNotification(`Order placed! Total: $${total.toFixed(2)}`, 'success');
       cart = [];
       updateCartUI();
+      try { localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart)); } catch (e) {}
       closeCart();
     });
   }

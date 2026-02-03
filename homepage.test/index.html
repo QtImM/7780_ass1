@@ -478,33 +478,37 @@
       
       if (typeof cart === 'undefined') return;
       
-      // Update cart count
-      cartCount.textContent = cart.length;
+      // Badge: 商品总数量（所有条目的 quantity 之和）
+      const totalQty = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+      cartCount.textContent = totalQty;
+      if (totalQty > 0) {
+        cartCount.classList.add('visible');
+      } else {
+        cartCount.classList.remove('visible');
+      }
 
-      // Update cart items display
+      // Cart items with nice +/- controls
       if (cart.length === 0) {
         cartItemsContainer.innerHTML = '<p class="cart-empty">Your cart is empty</p>';
       } else {
         let html = '';
         cart.forEach((item, index) => {
+          const opts = [];
+          if (item.toppings && item.toppings !== 'None') opts.push('Toppings: ' + item.toppings);
+          if (item.milk && item.milk !== 'None') opts.push('Milk: ' + item.milk);
           html += `
-            <div class="cart-item" style="display: flex; padding: 1rem; border-bottom: 1px solid #eee; gap: 1rem;">
-              <img src="${item.productImage || 'image/Page 2/drink sku without straws .jpeg'}" alt="${item.productName}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">
-              <div style="flex: 1;">
-                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
-                  <strong style="font-size: 1rem;">${item.productName}</strong>
-                </div>
-                <div style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;">
-                  <div>Toppings: ${item.toppings}</div>
-                  <div>Milk: ${item.milk}</div>
-                </div>
-                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
-                  <div style="display: flex; align-items: center; gap: 0.5rem; background: #f5f5f5; border-radius: 4px;">
-                    <button onclick="decreaseQty(${index})" style="background: none; border: none; padding: 0.3rem 0.6rem; cursor: pointer; font-size: 1.1rem;">−</button>
-                    <span style="min-width: 30px; text-align: center;">${item.quantity}</span>
-                    <button onclick="increaseQty(${index})" style="background: none; border: none; padding: 0.3rem 0.6rem; cursor: pointer; font-size: 1.1rem;">+</button>
+            <div class="cart-item">
+              <img src="${item.productImage || 'image/Page 2/drink sku without straws .jpeg'}" alt="${item.productName}" class="cart-item-image">
+              <div class="cart-item-info">
+                <div class="cart-item-name">${item.productName}</div>
+                ${opts.length ? '<div class="cart-item-options" style="font-size:0.85rem;color:#666;margin-bottom:6px;">' + opts.join(' · ') + '</div>' : ''}
+                <div class="cart-item-controls">
+                  <div class="cart-item-quantity">
+                    <button type="button" class="quantity-btn" onclick="decreaseQty(${index})" aria-label="Decrease">−</button>
+                    <span class="quantity-value">${item.quantity}</span>
+                    <button type="button" class="quantity-btn" onclick="increaseQty(${index})" aria-label="Increase">+</button>
                   </div>
-                  <span style="color: #8B5A2B; font-weight: 600;">$${item.totalPrice}</span>
+                  <span class="cart-item-price">$${item.totalPrice}</span>
                 </div>
               </div>
             </div>
@@ -513,9 +517,10 @@
         cartItemsContainer.innerHTML = html;
       }
 
-      // Update total price
       const total = cart.reduce((sum, item) => sum + parseFloat(item.totalPrice), 0).toFixed(2);
       document.getElementById('cartTotal').textContent = '$' + total;
+      
+      try { localStorage.setItem('profit_cart', JSON.stringify(cart)); } catch (e) {}
     }
 
     function removeFromCart(index) {
@@ -539,12 +544,14 @@
           cart[index].quantity -= 1;
           cart[index].totalPrice = (cart[index].productPrice * cart[index].quantity).toFixed(2);
         } else {
-          // If quantity is 1, remove the product from cart
           cart.splice(index, 1);
         }
         updateCartUI();
       }
     }
+
+    // Sync cart badge and list on load (e.g. when returning from product page)
+    updateCartUI();
 
     // Open Drink Modal Function
     function openDrinkModal() {
