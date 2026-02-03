@@ -720,6 +720,7 @@ h3 {
     line-height: 1.8;
     margin-bottom: var(--space-lg);
     color: var(--color-text);
+    text-align: justify;
 }
 
 .about-features {
@@ -846,6 +847,7 @@ h3 {
     line-height: 1.7;
     color: rgba(255, 255, 255, 0.9);
     max-width: 500px;
+    text-align: justify;
 }
 
 .play-hint {
@@ -1095,7 +1097,7 @@ h3 {
 
 .footer-section h4 {
     color: var(--color-white);
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     margin-bottom: var(--space-md);
     font-family: var(--font-body);
     text-transform: uppercase;
@@ -1108,6 +1110,7 @@ h3 {
 
 .footer-links a {
     color: rgba(255, 255, 255, 0.7);
+    font-size: 1.1rem;
     transition: all var(--transition-fast);
 }
 
@@ -1122,8 +1125,8 @@ h3 {
 }
 
 .social-link {
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
     border-radius: var(--radius-full);
     background: rgba(255, 255, 255, 0.1);
     display: flex;
@@ -1138,8 +1141,8 @@ h3 {
 }
 
 .social-link svg {
-    width: 18px;
-    height: 18px;
+    width: 22px;
+    height: 22px;
 }
 
 .footer-bottom {
@@ -1148,7 +1151,7 @@ h3 {
     padding-top: var(--space-md);
     text-align: center;
     color: rgba(255, 255, 255, 0.5);
-    font-size: 0.9rem;
+    font-size: 1rem;
 }
 
 /* Response Footer (Polish) */
@@ -1346,7 +1349,7 @@ h3 {
 
 .team-section h4 {
     color: var(--color-white);
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     margin-bottom: var(--space-md);
     font-family: var(--font-body);
     text-transform: uppercase;
@@ -1377,14 +1380,14 @@ h3 {
     display: block;
     color: var(--color-white);
     font-weight: 600;
-    font-size: 1.15rem;
+    font-size: 1.3rem;
     margin-bottom: 6px;
 }
 
 .member-id {
     display: block;
     color: rgba(255, 255, 255, 0.4);
-    font-size: 0.9rem;
+    font-size: 1rem;
     margin-bottom: 8px;
 }
 
@@ -1392,7 +1395,7 @@ h3 {
     display: block;
     color: var(--color-accent);
     /* Golden color */
-    font-size: 1rem;
+    font-size: 1.15rem;
     font-weight: 500;
 }
 
