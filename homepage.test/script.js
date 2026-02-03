@@ -3,10 +3,6 @@
  * Handles carousel, navigation, scroll effects, form interactions, and shopping cart
  */
 
-// Shopping Cart State (persisted across pages via localStorage)
-const CART_STORAGE_KEY = 'profit_cart';
-let cart = JSON.parse(localStorage.getItem(CART_STORAGE_KEY) || '[]');
-
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize all components
   initCarousel();
@@ -15,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   initSmoothScroll();
   initContactForm();
-  initCart();
+  initVideoAutoplay();
 });
 
 /**
@@ -101,6 +97,8 @@ function initNavbar() {
   const navbar = document.getElementById('navbar');
   const navLinks = document.querySelectorAll('.nav-link');
 
+  if (!navbar) return;
+
   function updateNavbar() {
     if (window.scrollY > 50) {
       navbar.classList.add('scrolled');
@@ -144,26 +142,37 @@ function initNavbar() {
  */
 function initMobileMenu() {
   const toggle = document.getElementById('mobileToggle');
-  const navLinks = document.getElementById('navLinks');
-  const links = navLinks.querySelectorAll('a');
+  const navLinksLeft = document.getElementById('navLinksLeft');
+  const navLinksRight = document.getElementById('navLinksRight');
+
+  if (!toggle || (!navLinksLeft && !navLinksRight)) return;
+
+  const allLinks = document.querySelectorAll('.nav-link');
 
   toggle.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
+    if (navLinksLeft) navLinksLeft.classList.toggle('active');
+    if (navLinksRight) navLinksRight.classList.toggle('active');
     toggle.classList.toggle('active');
   });
 
   // Close menu on link click
-  links.forEach(link => {
+  allLinks.forEach(link => {
     link.addEventListener('click', () => {
-      navLinks.classList.remove('active');
+      if (navLinksLeft) navLinksLeft.classList.remove('active');
+      if (navLinksRight) navLinksRight.classList.remove('active');
       toggle.classList.remove('active');
     });
   });
 
   // Close on outside click
   document.addEventListener('click', (e) => {
-    if (!toggle.contains(e.target) && !navLinks.contains(e.target)) {
-      navLinks.classList.remove('active');
+    const isClickInside = toggle.contains(e.target) ||
+      (navLinksLeft && navLinksLeft.contains(e.target)) ||
+      (navLinksRight && navLinksRight.contains(e.target));
+
+    if (!isClickInside) {
+      if (navLinksLeft) navLinksLeft.classList.remove('active');
+      if (navLinksRight) navLinksRight.classList.remove('active');
       toggle.classList.remove('active');
     }
   });
@@ -257,160 +266,6 @@ function initContactForm() {
   }
 }
 
-/**
- * Shopping Cart Functionality
- */
-function initCart() {
-  const cartToggle = document.getElementById('cartToggle');
-  const cartClose = document.getElementById('cartClose');
-  const cartWidget = document.getElementById('cartWidget');
-  const cartOverlay = document.getElementById('cartOverlay');
-  const cartCount = document.getElementById('cartCount');
-  const cartItems = document.getElementById('cartItems');
-  const cartTotal = document.getElementById('cartTotal');
-
-  // Toggle cart visibility
-  function openCart() {
-    cartWidget.classList.add('open');
-    cartOverlay.classList.add('open');
-  }
-
-  function closeCart() {
-    cartWidget.classList.remove('open');
-    cartOverlay.classList.remove('open');
-  }
-
-  if (cartToggle) {
-    cartToggle.addEventListener('click', openCart);
-  }
-
-  if (cartClose) {
-    cartClose.addEventListener('click', closeCart);
-  }
-
-  if (cartOverlay) {
-    cartOverlay.addEventListener('click', closeCart);
-  }
-
-  // Close cart with Escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeCart();
-    }
-  });
-
-  // Add to cart functionality - Skip drink items (they use modal)
-  document.querySelectorAll('.product-action:not(.drink-action)').forEach(button => {
-    button.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-
-      const card = button.closest('.product-card');
-      const productId = card.dataset.productId;
-      const productName = card.dataset.productName;
-      const productPrice = parseFloat(card.dataset.productPrice);
-      const productImage = card.dataset.productImage;
-
-      addToCart({
-        id: productId,
-        productName: productName,
-        productPrice: productPrice,
-        productImage: productImage,
-        quantity: 1,
-        totalPrice: productPrice.toFixed(2),
-        toppings: 'None',
-        milk: 'None'
-      });
-
-      // Button animation
-      button.style.transform = 'scale(0.9) rotate(90deg)';
-      setTimeout(() => {
-        button.style.transform = '';
-      }, 300);
-
-      showNotification(`${productName} added to cart!`, 'success');
-    });
-  });
-
-  // Update cart quantity
-  window.updateQuantity = function (productId, change) {
-    const item = cart.find(item => item.id === productId);
-
-    if (item) {
-      item.quantity += change;
-
-      if (item.quantity <= 0) {
-        removeFromCart(productId);
-      } else {
-        updateCartUI();
-      }
-    }
-  };
-
-  // Remove item from cart
-  window.removeFromCart = function (productId) {
-    cart = cart.filter(item => item.id !== productId);
-    updateCartUI();
-  };
-
-  // Update cart UI
-  function updateCartUI() {
-    // Update cart count
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    cartCount.textContent = totalItems;
-
-    if (totalItems > 0) {
-      cartCount.classList.add('visible');
-    } else {
-      cartCount.classList.remove('visible');
-    }
-
-    // Update cart items display
-    if (cart.length === 0) {
-      cartItems.innerHTML = '<p class="cart-empty">Your cart is empty</p>';
-    } else {
-      cartItems.innerHTML = cart.map(item => `
-        <div class="cart-item">
-          <img src="${item.image}" alt="${item.name}" class="cart-item-image">
-          <div class="cart-item-info">
-            <div class="cart-item-name">${item.name}</div>
-            <div class="cart-item-price">$${item.price.toFixed(2)}</div>
-          </div>
-          <div class="cart-item-controls">
-            <div class="cart-item-quantity">
-              <button class="quantity-btn" onclick="updateQuantity('${item.id}', -1)">-</button>
-              <span class="quantity-value">${item.quantity}</span>
-              <button class="quantity-btn" onclick="updateQuantity('${item.id}', 1)">+</button>
-            </div>
-            <button class="cart-item-remove" onclick="removeFromCart('${item.id}')">Remove</button>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    // Update total
-    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    cartTotal.textContent = `$${total.toFixed(2)}`;
-  }
-
-  // Checkout functionality
-  const checkoutBtn = document.querySelector('.cart-checkout');
-  if (checkoutBtn) {
-    checkoutBtn.addEventListener('click', () => {
-      if (cart.length === 0) {
-        showNotification('Your cart is empty!', 'error');
-        return;
-      }
-
-      const total = cart.reduce((sum, item) => sum + parseFloat(item.totalPrice != null ? item.totalPrice : (item.productPrice * item.quantity)), 0);
-      showNotification(`Order placed! Total: $${total.toFixed(2)}`, 'success');
-      cart = [];
-      updateCartUI();
-      try { localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart)); } catch (e) {}
-      closeCart();
-    });
-  }
-}
 
 /**
  * Show Notification Toast
@@ -479,3 +334,85 @@ window.addEventListener('scroll', () => {
     hero.style.opacity = 1 - (scrolled / window.innerHeight);
   }
 });
+
+/**
+ * Video Auto-play on Scroll
+ */
+function initVideoAutoplay() {
+  const video = document.getElementById('promoVideo');
+  const container = video?.closest('.video-container');
+  const muteBtn = document.getElementById('videoMuteBtn');
+
+  if (!video || !container) return;
+
+  // Set initial preferences
+  video.volume = 0.5; // Increased volume for better audibility
+  video.muted = false; // Start by trying to play unmuted
+
+  const updateMuteUI = () => {
+    if (muteBtn) {
+      if (video.muted) {
+        muteBtn.classList.add('muted');
+      } else {
+        muteBtn.classList.remove('muted');
+      }
+    }
+  };
+
+  const options = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.5
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Every time it comes into view, try playing with current mute setting
+        video.play().catch(error => {
+          // If unmuted playback is blocked, fallback to muted
+          if (!video.muted) {
+            console.log("Auto-play with sound blocked, falling back to muted auto-play");
+            video.muted = true;
+            updateMuteUI();
+            video.play().catch(e => console.error("Still blocked even muted:", e));
+          }
+        });
+        container.classList.add('playing');
+      } else {
+        video.pause();
+        container.classList.remove('playing');
+      }
+    });
+  }, options);
+
+  observer.observe(video);
+
+  // Mute Button Handler
+  if (muteBtn) {
+    muteBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // Don't trigger the container click
+      video.muted = !video.muted;
+      updateMuteUI();
+
+      if (!video.muted && video.paused) {
+        video.play();
+        container.classList.add('playing');
+      }
+    });
+  }
+
+  // Container click: Play/Pause
+  container.addEventListener('click', () => {
+    if (video.paused) {
+      video.play();
+      container.classList.add('playing');
+    } else {
+      video.pause();
+      container.classList.remove('playing');
+    }
+  });
+
+  // Sync UI initially
+  updateMuteUI();
+}
