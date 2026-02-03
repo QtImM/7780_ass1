@@ -3,9 +3,8 @@
  * Handles carousel, navigation, scroll effects, form interactions, and shopping cart
  */
 
-// Shopping Cart State (persisted across pages via localStorage)
-const CART_STORAGE_KEY = 'profit_cart';
-let cart = JSON.parse(localStorage.getItem(CART_STORAGE_KEY) || '[]');
+// Shopping Cart State
+let cart = [];
 
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize all components
@@ -16,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmoothScroll();
   initContactForm();
   initCart();
+  initVideoAutoplay();
 });
 
 /**
@@ -101,6 +101,8 @@ function initNavbar() {
   const navbar = document.getElementById('navbar');
   const navLinks = document.querySelectorAll('.nav-link');
 
+  if (!navbar) return;
+
   function updateNavbar() {
     if (window.scrollY > 50) {
       navbar.classList.add('scrolled');
@@ -144,26 +146,37 @@ function initNavbar() {
  */
 function initMobileMenu() {
   const toggle = document.getElementById('mobileToggle');
-  const navLinks = document.getElementById('navLinks');
-  const links = navLinks.querySelectorAll('a');
+  const navLinksLeft = document.getElementById('navLinksLeft');
+  const navLinksRight = document.getElementById('navLinksRight');
+
+  if (!toggle || (!navLinksLeft && !navLinksRight)) return;
+
+  const allLinks = document.querySelectorAll('.nav-link');
 
   toggle.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
+    if (navLinksLeft) navLinksLeft.classList.toggle('active');
+    if (navLinksRight) navLinksRight.classList.toggle('active');
     toggle.classList.toggle('active');
   });
 
   // Close menu on link click
-  links.forEach(link => {
+  allLinks.forEach(link => {
     link.addEventListener('click', () => {
-      navLinks.classList.remove('active');
+      if (navLinksLeft) navLinksLeft.classList.remove('active');
+      if (navLinksRight) navLinksRight.classList.remove('active');
       toggle.classList.remove('active');
     });
   });
 
   // Close on outside click
   document.addEventListener('click', (e) => {
-    if (!toggle.contains(e.target) && !navLinks.contains(e.target)) {
-      navLinks.classList.remove('active');
+    const isClickInside = toggle.contains(e.target) ||
+      (navLinksLeft && navLinksLeft.contains(e.target)) ||
+      (navLinksRight && navLinksRight.contains(e.target));
+
+    if (!isClickInside) {
+      if (navLinksLeft) navLinksLeft.classList.remove('active');
+      if (navLinksRight) navLinksRight.classList.remove('active');
       toggle.classList.remove('active');
     }
   });
@@ -299,8 +312,8 @@ function initCart() {
     }
   });
 
-  // Add to cart functionality - Skip drink items (they use modal)
-  document.querySelectorAll('.product-action:not(.drink-action)').forEach(button => {
+  // Add to cart functionality
+  document.querySelectorAll('.product-action').forEach(button => {
     button.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -313,13 +326,9 @@ function initCart() {
 
       addToCart({
         id: productId,
-        productName: productName,
-        productPrice: productPrice,
-        productImage: productImage,
-        quantity: 1,
-        totalPrice: productPrice.toFixed(2),
-        toppings: 'None',
-        milk: 'None'
+        name: productName,
+        price: productPrice,
+        image: productImage
       });
 
       // Button animation
@@ -329,8 +338,29 @@ function initCart() {
       }, 300);
 
       showNotification(`${productName} added to cart!`, 'success');
+
+      // Open cart after adding
+      setTimeout(() => {
+        openCart();
+      }, 500);
     });
   });
+
+  // Add item to cart
+  function addToCart(product) {
+    const existingItem = cart.find(item => item.id === product.id);
+
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      cart.push({
+        ...product,
+        quantity: 1
+      });
+    }
+
+    updateCartUI();
+  }
 
   // Update cart quantity
   window.updateQuantity = function (productId, change) {
@@ -402,11 +432,10 @@ function initCart() {
         return;
       }
 
-      const total = cart.reduce((sum, item) => sum + parseFloat(item.totalPrice != null ? item.totalPrice : (item.productPrice * item.quantity)), 0);
+      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
       showNotification(`Order placed! Total: $${total.toFixed(2)}`, 'success');
       cart = [];
       updateCartUI();
-      try { localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart)); } catch (e) {}
       closeCart();
     });
   }
@@ -479,3 +508,85 @@ window.addEventListener('scroll', () => {
     hero.style.opacity = 1 - (scrolled / window.innerHeight);
   }
 });
+
+/**
+ * Video Auto-play on Scroll
+ */
+function initVideoAutoplay() {
+  const video = document.getElementById('promoVideo');
+  const container = video?.closest('.video-container');
+  const muteBtn = document.getElementById('videoMuteBtn');
+
+  if (!video || !container) return;
+
+  // Set initial preferences
+  video.volume = 0.5; // Increased volume for better audibility
+  video.muted = false; // Start by trying to play unmuted
+
+  const updateMuteUI = () => {
+    if (muteBtn) {
+      if (video.muted) {
+        muteBtn.classList.add('muted');
+      } else {
+        muteBtn.classList.remove('muted');
+      }
+    }
+  };
+
+  const options = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.5
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Every time it comes into view, try playing with current mute setting
+        video.play().catch(error => {
+          // If unmuted playback is blocked, fallback to muted
+          if (!video.muted) {
+            console.log("Auto-play with sound blocked, falling back to muted auto-play");
+            video.muted = true;
+            updateMuteUI();
+            video.play().catch(e => console.error("Still blocked even muted:", e));
+          }
+        });
+        container.classList.add('playing');
+      } else {
+        video.pause();
+        container.classList.remove('playing');
+      }
+    });
+  }, options);
+
+  observer.observe(video);
+
+  // Mute Button Handler
+  if (muteBtn) {
+    muteBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // Don't trigger the container click
+      video.muted = !video.muted;
+      updateMuteUI();
+
+      if (!video.muted && video.paused) {
+        video.play();
+        container.classList.add('playing');
+      }
+    });
+  }
+
+  // Container click: Play/Pause
+  container.addEventListener('click', () => {
+    if (video.paused) {
+      video.play();
+      container.classList.add('playing');
+    } else {
+      video.pause();
+      container.classList.remove('playing');
+    }
+  });
+
+  // Sync UI initially
+  updateMuteUI();
+}

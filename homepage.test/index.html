@@ -5,9 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="Pro-Fit Bakehouse - High Protein. Low Sugar. Real Bread. Artisan bakery crafting healthy, delicious breads and pastries.">
+    content="Pro-Fit Bakehouse - Artisan bakery crafting healthy, delicious breads and pastries.">
   <meta name="keywords" content="bakery, high protein bread, low sugar, healthy pastries, artisan bread">
-  <title>Pro-Fit Bakehouse | High Protein. Low Sugar. Real Bread.</title>
+  <title>Pro-Fit Bakehouse</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,21 +24,29 @@
 
   <!-- Navigation -->
   <nav class="navbar" id="navbar">
-    <a href="#home" class="navbar-logo">
-      <img src="image/Page 1/logo.png" alt="Pro-Fit Bakehouse Logo">
-    </a>
-
-    <!-- Center Navigation Links -->
-    <ul class="nav-links" id="navLinks">
+    <!-- Left Navigation Links -->
+    <ul class="nav-links nav-links-left" id="navLinksLeft">
       <li>
         <a href="#home" class="nav-link active">Home</a>
       </li>
       <li>
-        <a href="#about" class="nav-link">About</a>
+        <a href="#products" class="nav-link">Menus</a>
+      </li>
+    </ul>
+
+    <!-- Center Logo -->
+    <a href="#home" class="navbar-logo">
+      <img src="image/Page%201/LOGO4.png" alt="Pro-Fit Bakehouse Logo">
+    </a>
+
+    <!-- Right Navigation Links -->
+    <ul class="nav-links nav-links-right" id="navLinksRight">
+      <a href="#about" class="nav-link">About us</a>
       </li>
       <li>
-        <a href="#contact" class="nav-link">Contact</a>
+        <a href="#team" class="nav-link">Contact</a>
       </li>
+
     </ul>
 
     <!-- Right Side Icons -->
@@ -76,24 +84,21 @@
   <section class="hero" id="home">
     <div class="hero-carousel">
       <div class="carousel-slide active">
-        <img src="image/Page 1/輪播圖 1.jpeg" alt="Fresh baked goods display">
+        <img src="image/Page%201/輪播圖%201.jpeg" alt="Fresh baked goods display">
         <div class="carousel-overlay"></div>
       </div>
       <div class="carousel-slide">
-        <img src="image/Page 1/輪播圖 2 盒子改變了.png" alt="Friends enjoying Pro-Fit products">
+        <img src="image/Page%201/輪播圖%202%20盒子改變了.png" alt="Friends enjoying Pro-Fit products">
         <div class="carousel-overlay"></div>
       </div>
       <div class="carousel-slide">
-        <img src="image/Page 1/門店內部圖 with 客人.png" alt="Pro-Fit Bakehouse interior">
+        <img src="image/Page%201/轮播图3.jpg" alt="Pro-Fit Bakehouse interior">
         <div class="carousel-overlay"></div>
       </div>
     </div>
 
     <div class="hero-content">
       <h1 class="hero-title">Fuel Your Day, The Delicious Way</h1>
-      <p class="hero-tagline">
-        <span>High Protein.</span> <span>Low Sugar.</span> <span>Real Bread.</span>
-      </p>
       <div class="hero-cta">
         <a href="#products" class="btn btn-primary">Explore Menu</a>
         <a href="#about" class="btn btn-white">Our Story</a>
@@ -108,24 +113,121 @@
   </section>
 
   <!-- Featured Products Section -->
-  <!--
-  原来的三张产品卡片板块已按要求注释掉，改为下面的“TO OUR MENU” 按钮。
-  <section class="products" id="products">
-    ...
-  </section>
-  -->
-
-  <!-- 简化为一个前往菜单页的按钮，风格保持一致 -->
   <section class="products" id="products">
     <div class="section-title reveal">
       <h2>Our Signature Delights</h2>
       <p class="section-subtitle">Handcrafted with love, powered by protein, sweetened by nature</p>
     </div>
 
-    <div style="text-align: center; margin-top: 2rem; margin-bottom: 2rem;">
-      <a href="../comp7780_product.html" class="btn btn-primary" style="padding: 1rem 3rem; font-size: 1.05rem;">
-        TO OUR MENU
-      </a>
+    <div class="products-grid">
+      <div class="product-card reveal" data-product-id="1" data-product-name="Artisan Protein Bread"
+        data-product-price="8.99" data-product-image="image/Page%202/bread%20sku%20alternative.jpg">
+        <div class="product-image">
+          <img src="image/Page%202/bread%20sku%20alternative.jpg" alt="Artisan Protein Bread">
+          <span class="product-badge">Best Seller</span>
+        </div>
+        <div class="product-content">
+          <h3 class="product-title">Artisan Protein Bread</h3>
+          <p class="product-description">Handcrafted sourdough enriched with plant proteins. Perfect for your healthy
+            lifestyle.</p>
+          <div class="product-footer">
+            <span class="product-price">$8.99</span>
+            <button class="product-action" aria-label="Add to cart">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card reveal" data-product-id="2" data-product-name="Pistachio Protein Shake"
+        data-product-price="6.49" data-product-image="image/Page%202/drink%20sku%20without%20straws%20.jpeg">
+        <div class="product-image">
+          <img src="image/Page%202/drink%20sku%20without%20straws%20.jpeg" alt="Pistachio Protein Shake">
+          <span class="product-badge">New</span>
+        </div>
+        <div class="product-content">
+          <h3 class="product-title">Pistachio Protein Shake</h3>
+          <p class="product-description">Creamy, dreamy, and packed with 25g of protein. Your post-workout reward.</p>
+          <div class="product-footer">
+            <span class="product-price">$6.49</span>
+            <button class="product-action" aria-label="Add to cart">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card reveal" data-product-id="3" data-product-name="Portuguese Egg Tarts"
+        data-product-price="4.99"
+        data-product-image="image/Page%202/egg%20tart%20alternertive%20sku%20without%20logo%20.png">
+        <div class="product-image">
+          <img src="image/Page%202/egg%20tart%20alternertive%20sku%20without%20logo%20.png" alt="Portuguese Egg Tarts">
+          <span class="product-badge">Popular</span>
+        </div>
+        <div class="product-content">
+          <h3 class="product-title">Portuguese Egg Tarts</h3>
+          <p class="product-description">Golden, flaky perfection with reduced sugar. Guilt-free indulgence in every
+            bite.</p>
+          <div class="product-footer">
+            <span class="product-price">$4.99</span>
+            <button class="product-action" aria-label="Add to cart">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="menu-cta-container reveal">
+      <a href="#menu-highlights" class="btn btn-wide-accent">TO OUR MENU</a>
+    </div>
+  </section>
+
+  <!-- Menu Highlights -->
+  <section class="menu-highlights" id="menu-highlights">
+    <div class="promo-flex-container reveal">
+      <div class="video-promotion">
+        <div class="video-container">
+          <video id="promoVideo" playsinline loop poster="image/Page 1/輪播圖 1.jpeg">
+            <source src="Video/2月3日.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <div class="video-overlay">
+            <div class="play-hint">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z"></path>
+              </svg>
+            </div>
+          </div>
+          <button id="videoMuteBtn" class="video-control-btn" aria-label="Toggle mute">
+            <svg class="unmuted-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+            <svg class="muted-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M11 5L6 9H2v6h4l5 4V5zM23 9l-6 6M17 9l6 6"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="promo-content">
+        <h2 class="promo-title">Crafted with Passion, Fuelled by Choice</h2>
+        <p class="promo-text">
+          Explore the artistry behind our high-protein, low-sugar creations. At Pro-Fit Bakehouse, we believe that
+          healthy living should never compromise on the sensory delight of artisan baking.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -183,107 +285,8 @@
             <span class="feature-text">Premium Ingredients</span>
           </div>
         </div>
-        <a href="#contact" class="btn btn-secondary">Learn More</a>
-      </div>
-    </div>
-  </section>
 
-  <!-- Menu Highlights -->
-  <section class="menu-highlights" id="menu-highlights">
-    <div class="section-title reveal">
-      <h2>Explore Our Menu</h2>
-      <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">Something delicious for every moment of your day
-      </p>
-    </div>
-
-    <div class="menu-grid">
-      <div class="menu-item reveal">
-        <div class="menu-icon">🍞</div>
-        <h4>Artisan Breads</h4>
-        <p>Sourdough, whole grain & protein-enriched loaves</p>
       </div>
-      <div class="menu-item reveal">
-        <div class="menu-icon">🥐</div>
-        <h4>Pastries</h4>
-        <p>Croissants, tarts & guilt-free sweet treats</p>
-      </div>
-      <div class="menu-item reveal">
-        <div class="menu-icon">🥤</div>
-        <h4>Protein Shakes</h4>
-        <p>Creamy blends with 20-30g of protein</p>
-      </div>
-      <div class="menu-item reveal">
-        <div class="menu-icon">☕</div>
-        <h4>Coffee & Tea</h4>
-        <p>Premium roasts & specialty lattes</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section class="contact" id="contact">
-    <div class="section-title reveal">
-      <h2>Get In Touch</h2>
-      <p class="section-subtitle">We'd love to hear from you</p>
-    </div>
-
-    <div class="contact-container">
-      <div class="contact-info reveal">
-        <h3>Visit Us</h3>
-        <div class="contact-item">
-          <div class="contact-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-              <circle cx="12" cy="10" r="3"></circle>
-            </svg>
-          </div>
-          <div class="contact-text">
-            <h4>Location</h4>
-            <p>123 Fitness Street, Health District<br>Los Angeles, CA 90001</p>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"></circle>
-              <polyline points="12 6 12 12 16 14"></polyline>
-            </svg>
-          </div>
-          <div class="contact-text">
-            <h4>Hours</h4>
-            <p>Mon - Fri: 7:00 AM - 8:00 PM<br>Sat - Sun: 8:00 AM - 6:00 PM</p>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path
-                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
-              </path>
-            </svg>
-          </div>
-          <div class="contact-text">
-            <h4>Contact</h4>
-            <p>Phone: (555) 123-4567<br>Email: hello@profitbakehouse.com</p>
-          </div>
-        </div>
-      </div>
-
-      <form class="contact-form reveal" id="contactForm">
-        <div class="form-group">
-          <label for="name">Your Name</label>
-          <input type="text" id="name" name="name" placeholder="John Doe" required>
-        </div>
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="john@example.com" required>
-        </div>
-        <div class="form-group">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" placeholder="How can we help you?" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
-      </form>
     </div>
   </section>
 
@@ -296,7 +299,8 @@
         style="color: rgba(255,255,255,0.9); font-size: 1.2rem; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
         Order online for pickup or delivery. Fresh, healthy, delicious — straight to you.
       </p>
-      <a href="#" class="btn" style="background: white; color: #E8A317; font-size: 1.1rem; padding: 1rem 2.5rem;">
+      <a href="#products" class="btn"
+        style="background: white; color: #E8A317; font-size: 1.1rem; padding: 1rem 2.5rem;">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
           style="margin-right: 8px;">
           <circle cx="9" cy="21" r="1"></circle>
@@ -308,14 +312,11 @@
     </div>
   </section>
 
-  <!-- Product Modal Container -->
-  <iframe id="productModalFrame" src="../comp7780_product.html" style="display: none;"></iframe>
-
   <!-- Footer -->
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-brand">
-        <img src="image/Page 1/logo.png" alt="Pro-Fit Bakehouse" class="footer-logo">
+        <img src="image/Page%201/LOGO4.png" alt="Pro-Fit Bakehouse" class="footer-logo">
         <p class="footer-tagline">
           Where fitness meets flavor. Crafting high-protein, low-sugar baked goods
           that fuel your body and delight your taste buds.
@@ -328,17 +329,16 @@
           <li><a href="#home">Home</a></li>
           <li><a href="#products">Menus</a></li>
           <li><a href="#about">About Us</a></li>
-          <li><a href="#contact">Contact</a></li>
+
         </ul>
       </div>
 
       <div class="footer-section">
         <h4>Popular</h4>
         <ul class="footer-links">
-          <li><a href="#">Protein Bread</a></li>
-          <li><a href="#">Egg Tarts</a></li>
-          <li><a href="#">Protein Shakes</a></li>
-          <li><a href="#">Croissants</a></li>
+          <li><a href="#products">Artisan Protein Bread</a></li>
+          <li><a href="#products">Pistachio Protein Shake</a></li>
+          <li><a href="#products">Portuguese Egg Tarts</a></li>
         </ul>
       </div>
 
@@ -369,8 +369,8 @@
     </div>
 
     <!-- Team Section -->
-    <div class="team-section">
-      <h4>Our Team</h4>
+    <div class="team-section" id="team">
+      <h4>Pro-Fit Team</h4>
       <div class="team-grid">
         <div class="team-member">
           <span class="member-name">Ke Linyao</span>
@@ -406,7 +406,7 @@
     </div>
 
     <div class="footer-bottom">
-      <p>&copy; 2024 Pro-Fit Bakehouse. All rights reserved. | Made with ❤️ and protein</p>
+      <p>&copy; 2026 COMP7780 Pro-Fit Bakehouse. All rights reserved. | Made with ❤️ and protein</p>
     </div>
   </footer>
 
@@ -435,153 +435,6 @@
   <div class="cart-overlay" id="cartOverlay"></div>
 
   <!-- JavaScript -->
-  <script>
-    // Cart Management (synced with script.js cart)
-    function addToCart(product) {
-      // Add to the cart array managed by script.js
-      if (typeof cart !== 'undefined') {
-        // Check if product with same configuration already exists
-        const existingProduct = cart.find(item => 
-          item.productName === product.productName && 
-          item.toppings === product.toppings && 
-          item.milk === product.milk
-        );
-        
-        if (existingProduct) {
-          // If found, increase quantity
-          existingProduct.quantity += product.quantity;
-          existingProduct.totalPrice = (existingProduct.productPrice * existingProduct.quantity).toFixed(2);
-        } else {
-          // If not found, add new product
-          cart.push(product);
-        }
-        
-        // Trigger cart display update
-        updateCartUI();
-        
-        // Automatically open the cart - use setTimeout to ensure DOM is ready
-        setTimeout(() => {
-          const cartWidget = document.getElementById('cartWidget');
-          const cartOverlay = document.getElementById('cartOverlay');
-          if (cartWidget && cartOverlay) {
-            cartWidget.classList.add('open');
-            cartOverlay.classList.add('open');
-          }
-        }, 0);
-      }
-      console.log('Product added to cart:', product);
-    }
-
-    function updateCartUI() {
-      const cartCount = document.getElementById('cartCount');
-      const cartItemsContainer = document.getElementById('cartItems');
-      
-      if (typeof cart === 'undefined') return;
-      
-      // Badge: 商品总数量（所有条目的 quantity 之和）
-      const totalQty = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-      cartCount.textContent = totalQty;
-      if (totalQty > 0) {
-        cartCount.classList.add('visible');
-      } else {
-        cartCount.classList.remove('visible');
-      }
-
-      // Cart items with nice +/- controls
-      if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '<p class="cart-empty">Your cart is empty</p>';
-      } else {
-        let html = '';
-        cart.forEach((item, index) => {
-          const opts = [];
-          if (item.toppings && item.toppings !== 'None') opts.push('Toppings: ' + item.toppings);
-          if (item.milk && item.milk !== 'None') opts.push('Milk: ' + item.milk);
-          html += `
-            <div class="cart-item">
-              <img src="${item.productImage || 'image/Page 2/drink sku without straws .jpeg'}" alt="${item.productName}" class="cart-item-image">
-              <div class="cart-item-info">
-                <div class="cart-item-name">${item.productName}</div>
-                ${opts.length ? '<div class="cart-item-options" style="font-size:0.85rem;color:#666;margin-bottom:6px;">' + opts.join(' · ') + '</div>' : ''}
-                <div class="cart-item-controls">
-                  <div class="cart-item-quantity">
-                    <button type="button" class="quantity-btn" onclick="decreaseQty(${index})" aria-label="Decrease">−</button>
-                    <span class="quantity-value">${item.quantity}</span>
-                    <button type="button" class="quantity-btn" onclick="increaseQty(${index})" aria-label="Increase">+</button>
-                  </div>
-                  <span class="cart-item-price">$${item.totalPrice}</span>
-                </div>
-              </div>
-            </div>
-          `;
-        });
-        cartItemsContainer.innerHTML = html;
-      }
-
-      const total = cart.reduce((sum, item) => sum + parseFloat(item.totalPrice), 0).toFixed(2);
-      document.getElementById('cartTotal').textContent = '$' + total;
-      
-      try { localStorage.setItem('profit_cart', JSON.stringify(cart)); } catch (e) {}
-    }
-
-    function removeFromCart(index) {
-      if (typeof cart !== 'undefined') {
-        cart.splice(index, 1);
-        updateCartUI();
-      }
-    }
-
-    function increaseQty(index) {
-      if (typeof cart !== 'undefined' && cart[index]) {
-        cart[index].quantity += 1;
-        cart[index].totalPrice = (cart[index].productPrice * cart[index].quantity).toFixed(2);
-        updateCartUI();
-      }
-    }
-
-    function decreaseQty(index) {
-      if (typeof cart !== 'undefined' && cart[index]) {
-        if (cart[index].quantity > 1) {
-          cart[index].quantity -= 1;
-          cart[index].totalPrice = (cart[index].productPrice * cart[index].quantity).toFixed(2);
-        } else {
-          cart.splice(index, 1);
-        }
-        updateCartUI();
-      }
-    }
-
-    // Sync cart badge and list on load (e.g. when returning from product page)
-    updateCartUI();
-
-    // Open Drink Modal Function
-    function openDrinkModal() {
-      const modalFrame = document.getElementById('productModalFrame');
-      const drinkProduct = {
-        name: 'Pistachio Protein Shake',
-        price: 'CAD$6.49',
-        priceValue: 6.49,
-        description: 'Creamy, dreamy, and packed with 25g of protein. Your post-workout reward.',
-        allergens: 'Allergens: Tree Nuts, Dairy'
-      };
-      
-      // Access iframe content and call openModal
-      try {
-        modalFrame.contentWindow.openProductModal(drinkProduct);
-        // Make sure modal is visible
-        modalFrame.style.display = 'block';
-        modalFrame.style.position = 'fixed';
-        modalFrame.style.top = '0';
-        modalFrame.style.left = '0';
-        modalFrame.style.width = '100%';
-        modalFrame.style.height = '100%';
-        modalFrame.style.border = 'none';
-        modalFrame.style.zIndex = '9999';
-        modalFrame.style.background = 'transparent';
-      } catch (e) {
-        console.error('Error opening modal:', e);
-      }
-    }
-  </script>
   <script src="script.js"></script>
 </body>
 
