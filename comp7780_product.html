@@ -39,6 +39,31 @@
 			color: rgb(74, 74, 74);
 			stroke: rgb(74, 74, 74);
 		}
+
+		/* Products Category Styles */
+		.products-category {
+			margin-bottom: 3rem;
+		}
+
+		.products-category h3 {
+			font-size: 2.2rem;
+			font-weight: 700;
+			color: #8B5A2B;
+			margin-bottom: 0;
+			text-align: left;
+		}
+
+		.products-category .section-subtitle {
+			font-size: 1.1rem;
+			color: #ebb13b;
+			font-weight: 500;
+			margin-bottom: 2rem !important;
+			margin-top: 0 !important;
+			margin-left: 0 !important;
+			margin-right: 0 !important;
+			text-align: left;
+			max-width: none;
+		}
 		
 		/* Ensure modal styles work */
 		.modal-overlay {
@@ -308,86 +333,165 @@
 
 	<!-- Products Section：仅保留 Our Full Menu 作为页面主体 -->
 	<section class="products" id="products" style="padding-top: 2rem;">
-		<div class="section-title">
-			<h2>Our Full Menu</h2>
-			<p class="section-subtitle">Handcrafted with love, powered by protein, sweetened by nature</p>
-		</div>
+		   <div class="section-title">
+			   <h2>Our Full Menu</h2>
+		   </div>
 
-		<div class="products-grid">
-			<div class="product-card" data-product-id="1" data-product-name="Artisan Protein Bread"
-				data-product-price="8.99" data-product-image="homepage.test/image/Page 2/bread sku alternative.jpg">
-				<div class="product-image">
-					<img src="homepage.test/image/Page 2/bread sku alternative.jpg" alt="Artisan Protein Bread">
-					<span class="product-badge">Best Seller</span>
-				</div>
-				<div class="product-content">
-					<h3 class="product-title">Artisan Protein Bread</h3>
-					<p class="product-description">Handcrafted sourdough enriched with plant proteins. Perfect for your healthy
-						lifestyle.</p>
-					<div class="product-footer">
-						<span class="product-price">$8.99</span>
-						<button class="product-action" aria-label="Add to cart" onclick="addToCartFromCard(this)">
-							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-								stroke-linejoin="round">
-								<line x1="12" y1="5" x2="12" y2="19"></line>
-								<line x1="5" y1="12" x2="19" y2="12"></line>
-							</svg>
-						</button>
-					</div>
-				</div>
-			</div>
+		   <!-- Pastries 板块 -->
+		   <div class="products-category">
+			   <h3>Pastries</h3>
+			   <p class="section-subtitle">Premium, Nutritious, Reduced-Sugar Bakes</p>
+			   <div class="products-grid">
+				   <div class="product-card" data-product-id="1" data-product-name="Artisan Protein Bread"
+					   data-product-price="8.99" data-product-image="homepage.test/image/Page 2/bread sku alternative.jpg">
+					   <div class="product-image">
+						   <img src="homepage.test/image/Page 2/bread sku alternative.jpg" alt="Artisan Protein Bread">
+						   <span class="product-badge">Best Seller</span>
+					   </div>
+					   <div class="product-content">
+						   <h3 class="product-title">Artisan Protein Bread</h3>
+						   <p class="product-description">Handcrafted sourdough enriched with plant proteins. Perfect for your healthy lifestyle.</p>
+						   <div class="product-footer">
+							   <span class="product-price">$8.99</span>
+							   <button class="product-action" aria-label="Add to cart" onclick="addToCartFromCard(this)">
+								   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									   <line x1="12" y1="5" x2="12" y2="19"></line>
+									   <line x1="5" y1="12" x2="19" y2="12"></line>
+								   </svg>
+							   </button>
+						   </div>
+					   </div>
+				   </div>
+				   <div class="product-card" data-product-id="3" data-product-name="Portuguese Egg Tarts"
+					   data-product-price="4.99" data-product-image="homepage.test/image/Page 2/egg tart alternertive sku without logo .png">
+					   <div class="product-image">
+						   <img src="homepage.test/image/Page 2/egg tart alternertive sku without logo .png" alt="Portuguese Egg Tarts">
+						   <span class="product-badge">Popular</span>
+					   </div>
+					   <div class="product-content">
+						   <h3 class="product-title">Portuguese Egg Tarts</h3>
+						   <p class="product-description">Golden, flaky perfection with reduced sugar. Guilt-free indulgence in every bite.</p>
+						   <div class="product-footer">
+							   <span class="product-price">$4.99</span>
+							   <button class="product-action" aria-label="Add to cart" onclick="addToCartFromCard(this)">
+								   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									   <line x1="12" y1="5" x2="12" y2="19"></line>
+									   <line x1="5" y1="12" x2="19" y2="12"></line>
+								   </svg>
+							   </button>
+						   </div>
+					   </div>
+				   </div>
+				   <div class="product-card" data-product-id="4" data-product-name="Pro-Fit Pistachio Tart"
+				   data-product-price="7.99" data-product-image="homepage.test/image/Page 2/pastachio tart.jpg">
+				   <div class="product-image">
+					   <img src="homepage.test/image/Page 2/pastachio tart.jpg" alt="Pro-Fit Pistachio Tart">
+						   <span class="product-badge">Artisanal</span>
+					   </div>
+					   <div class="product-content">
+						   <h3 class="product-title">Pro-Fit Pistachio Tart</h3>
+						   <p class="product-description">Crisp puff pastry with smooth pistachio filling. Sophistication in every bite.</p>
+						   <!-- <p class="product-tags" style="font-size: 0.8rem; color: #8B5A2B; margin-top: 0.5rem; font-weight: 500;">Artisanal | Premium Nuts | Luxury Texture</p> -->
+						   <div class="product-footer">
+							   <span class="product-price">$7.99</span>
+							   <button class="product-action" aria-label="Add to cart" onclick="addToCartFromCard(this)">
+								   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									   <line x1="12" y1="5" x2="12" y2="19"></line>
+									   <line x1="5" y1="12" x2="19" y2="12"></line>
+								   </svg>
+							   </button>
+						   </div>
+					   </div>
+				   </div>
+			   </div>
+		   </div>
 
-			<div class="product-card" data-product-id="2" data-product-name="Pistachio Protein Shake"
-				data-product-price="6.49" data-product-image="homepage.test/image/Page 2/drink sku without straws .jpeg">
-				<div class="product-image">
-					<img src="homepage.test/image/Page 2/drink sku without straws .jpeg" alt="Pistachio Protein Shake">
-					<span class="product-badge">New</span>
-				</div>
-				<div class="product-content">
-					<h3 class="product-title">Pistachio Protein Shake</h3>
-					<p class="product-description">Creamy, dreamy, and packed with 25g of protein. Your post-workout reward.</p>
-					<div class="product-footer">
-						<span class="product-price">$6.49</span>
-						<button class="product-action drink-action" aria-label="Add to cart" onclick="openProductModal({
-							name: 'Pistachio Protein Shake',
-							price: 'CAD$6.49',
-							priceValue: 6.49,
-							description: 'Creamy, dreamy, and packed with 25g of protein. Your post-workout reward.',
-							allergens: 'Allergens: Tree Nuts, Dairy'
-						})">
-							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-								stroke-linejoin="round">
-								<line x1="12" y1="5" x2="12" y2="19"></line>
-								<line x1="5" y1="12" x2="19" y2="12"></line>
-							</svg>
-						</button>
-					</div>
-				</div>
-			</div>
-
-			<div class="product-card" data-product-id="3" data-product-name="Portuguese Egg Tarts"
-				data-product-price="4.99" data-product-image="homepage.test/image/Page 2/egg tart alternertive sku without logo .png">
-				<div class="product-image">
-					<img src="homepage.test/image/Page 2/egg tart alternertive sku without logo .png" alt="Portuguese Egg Tarts">
-					<span class="product-badge">Popular</span>
-				</div>
-				<div class="product-content">
-					<h3 class="product-title">Portuguese Egg Tarts</h3>
-					<p class="product-description">Golden, flaky perfection with reduced sugar. Guilt-free indulgence in every
-						bite.</p>
-					<div class="product-footer">
-						<span class="product-price">$4.99</span>
-						<button class="product-action" aria-label="Add to cart" onclick="addToCartFromCard(this)">
-							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-								stroke-linejoin="round">
-								<line x1="12" y1="5" x2="12" y2="19"></line>
-								<line x1="5" y1="12" x2="19" y2="12"></line>
-							</svg>
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
+		   <!-- Drinkings 板块 -->
+		   <div class="products-category">
+			   <h3>Drinkings</h3>
+			   <p class="section-subtitle">Clean, Nutritious Sips with Real Fruits, Nuts & Milk</p>
+			   <div class="products-grid">
+				   <div class="product-card" data-product-id="2" data-product-name="Pistachio Protein Shake"
+					   data-product-price="6.49" data-product-image="homepage.test/image/Page 2/drink sku without straws .jpeg">
+					   <div class="product-image">
+						   <img src="homepage.test/image/Page 2/drink sku without straws .jpeg" alt="Pistachio Protein Shake">
+						   <span class="product-badge">New</span>
+					   </div>
+					   <div class="product-content">
+						   <h3 class="product-title">Pistachio Protein Shake</h3>
+						   <p class="product-description">Creamy, dreamy, and packed with 25g of protein. Your post-workout reward.</p>
+						   <div class="product-footer">
+							   <span class="product-price">$6.49</span>
+							   <button class="product-action drink-action" aria-label="Add to cart" onclick="openProductModal({
+								   name: 'Pistachio Protein Shake',
+								   price: 'CAD$6.49',
+								   priceValue: 6.49,
+								   description: 'Creamy, dreamy, and packed with 25g of protein. Your post-workout reward.',
+								   allergens: 'Allergens: Tree Nuts, Dairy'
+							   })">
+								   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									   <line x1="12" y1="5" x2="12" y2="19"></line>
+									   <line x1="5" y1="12" x2="19" y2="12"></line>
+								   </svg>
+							   </button>
+						   </div>
+					   </div>
+				   </div>
+				   <div class="product-card" data-product-id="5" data-product-name="Sunny Detox"
+					   data-product-price="5.99" data-product-image="homepage.test/image/Page 2/sunny_detox.jpg">
+					   <div class="product-image">
+						   <img src="homepage.test/image/Page 2/sunny_detox.jpg" alt="Sunny Detox">
+						   <span class="product-badge">Refreshing</span>
+					   </div>
+					   <div class="product-content">
+						   <h3 class="product-title">Sunny Detox</h3>
+						   <p class="product-description">Vibrant oolong tea blend with fresh citrus and passion fruit. Low sugar, vitamin-rich and refreshing.</p>
+						   <!-- <p class="product-tags" style="font-size: 0.8rem; color: #8B5A2B; margin-top: 0.5rem; font-weight: 500;">Low Sugar | Vitamin-Rich | All-Natural Ingredients</p> -->
+						   <div class="product-footer">
+							   <span class="product-price">$5.99</span>
+							   <button class="product-action drink-action" aria-label="Add to cart" onclick="openProductModal({
+								   name: 'Sunny Detox',
+								   price: 'CAD$5.99',
+								   priceValue: 5.99,
+								   description: 'Vibrant oolong tea blend with fresh citrus and passion fruit. Low sugar, vitamin-rich and refreshing.',
+						   })">
+								   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									   <line x1="12" y1="5" x2="12" y2="19"></line>
+									   <line x1="5" y1="12" x2="19" y2="12"></line>
+								   </svg>
+							   </button>
+						   </div>
+					   </div>
+				   </div>
+				   <div class="product-card" data-product-id="6" data-product-name="Signature Almond Latte"
+					   data-product-price="7.49" data-product-image="homepage.test/image/Page 2/almond_latte.jpg">
+					   <div class="product-image">
+						   <img src="homepage.test/image/Page 2/almond_latte.jpg" alt="Signature Almond Latte">
+						   <span class="product-badge">Premium</span>
+					   </div>
+					   <div class="product-content">
+						   <h3 class="product-title">Signature Almond Latte</h3>
+						   <p class="product-description">Premium single-origin coffee blended with cold-pressed almond milk. Luxuriously smooth with artisanal latte art.</p>
+						   <!-- <p class="product-tags" style="font-size: 0.8rem; color: #8B5A2B; margin-top: 0.5rem; font-weight: 500;">Premium Coffee | Cold-Pressed Almond Milk | Artisanal Latte Art</p> -->
+						   <div class="product-footer">
+							   <span class="product-price">$7.49</span>
+							   <button class="product-action drink-action" aria-label="Add to cart" onclick="openProductModal({
+								   name: 'Signature Almond Latte',
+								   price: 'CAD$7.49',
+								   priceValue: 7.49,
+								   description: 'Premium single-origin coffee blended with cold-pressed almond milk. Luxuriously smooth with artisanal latte art.',
+								   allergens: 'Allergens: Tree Nuts'
+							   })">
+								   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									   <line x1="12" y1="5" x2="12" y2="19"></line>
+									   <line x1="5" y1="12" x2="19" y2="12"></line>
+								   </svg>
+							   </button>
+						   </div>
+					   </div>
+				   </div>
+			   </div>
+		   </div>
 	</section>
 
 	<!-- Footer -->
@@ -742,6 +846,79 @@
 				basePrice = parseFloat(productData.priceValue);
 				qtyInput.value = 1;
 				updatePrice();
+				
+				// Update options based on product type
+				const optionTitles = document.querySelectorAll('.option-title');
+				const optionLists = document.querySelectorAll('.option-list');
+				
+				if (productData.name === 'Sunny Detox') {
+					optionTitles[0].innerHTML = 'Ice Level<span class="option-tag">Optional</span>';
+					const toppingLabels = optionLists[0].querySelectorAll('label');
+					toppingLabels[0].textContent = 'None (default this)';
+					toppingLabels[1].textContent = 'Light';
+					toppingLabels[2].textContent = 'Extra';
+					const toppingInputs = optionLists[0].querySelectorAll('input');
+					toppingInputs[0].value = 'None';
+					toppingInputs[1].value = 'Light';
+					toppingInputs[2].value = 'Extra';
+					
+					optionTitles[1].innerHTML = 'Sweetness<span class="option-tag">Optional</span>';
+					const milkLabels = optionLists[1].querySelectorAll('label');
+					milkLabels[0].textContent = 'No Sugar (default this)';
+					milkLabels[1].textContent = 'Light Sugar';
+					milkLabels[2].textContent = 'Normal Sugar';
+					const milkInputs = optionLists[1].querySelectorAll('input');
+					milkInputs[0].value = 'No Sugar';
+					milkInputs[1].value = 'Light Sugar';
+					milkInputs[2].value = 'Normal Sugar';
+					toppingInputs[0].checked = true;
+					milkInputs[0].checked = true;
+				} else if (productData.name === 'Signature Almond Latte') {
+					optionTitles[0].innerHTML = 'Shot Size<span class="option-tag">Optional</span>';
+					const toppingLabels = optionLists[0].querySelectorAll('label');
+					toppingLabels[0].textContent = 'Single (default this)';
+					toppingLabels[1].textContent = 'Double';
+					toppingLabels[2].textContent = 'Triple';
+					const toppingInputs = optionLists[0].querySelectorAll('input');
+					toppingInputs[0].value = 'Single';
+					toppingInputs[1].value = 'Double';
+					toppingInputs[2].value = 'Triple';
+					
+					optionTitles[1].innerHTML = 'Temperature<span class="option-tag">Optional</span>';
+					const milkLabels = optionLists[1].querySelectorAll('label');
+					milkLabels[0].textContent = 'Hot (default this)';
+					milkLabels[1].textContent = 'Warm';
+					milkLabels[2].textContent = 'Iced';
+					const milkInputs = optionLists[1].querySelectorAll('input');
+					milkInputs[0].value = 'Hot';
+					milkInputs[1].value = 'Warm';
+					milkInputs[2].value = 'Iced';
+					toppingInputs[0].checked = true;
+					milkInputs[0].checked = true;
+				} else {
+					// Reset to default Pistachio Protein Shake options
+					optionTitles[0].innerHTML = 'Toppings<span class="option-tag">Optional</span>';
+					const toppingLabels = optionLists[0].querySelectorAll('label');
+					toppingLabels[0].textContent = 'Pistachio (default this)';
+					toppingLabels[1].textContent = 'Almond';
+					toppingLabels[2].textContent = 'None';
+					const toppingInputs = optionLists[0].querySelectorAll('input');
+					toppingInputs[0].value = 'Pistachio';
+					toppingInputs[1].value = 'Almond';
+					toppingInputs[2].value = 'None';
+					
+					optionTitles[1].innerHTML = 'Alternative Milk<span class="option-tag">Optional</span>';
+					const milkLabels = optionLists[1].querySelectorAll('label');
+					milkLabels[0].textContent = 'Fresh Milk (default this)';
+					milkLabels[1].textContent = 'Almond Milk';
+					milkLabels[2].textContent = 'Oat Milk';
+					const milkInputs = optionLists[1].querySelectorAll('input');
+					milkInputs[0].value = 'Fresh Milk';
+					milkInputs[1].value = 'Almond Milk';
+					milkInputs[2].value = 'Oat Milk';
+					toppingInputs[0].checked = true;
+					milkInputs[0].checked = true;
+				}
 			}
 			modal.classList.add('active');
 		}
