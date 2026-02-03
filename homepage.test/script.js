@@ -3,9 +3,6 @@
  * Handles carousel, navigation, scroll effects, form interactions, and shopping cart
  */
 
-// Shopping Cart State
-let cart = [];
-
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize all components
   initCarousel();
@@ -14,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   initSmoothScroll();
   initContactForm();
-  initCart();
   initVideoAutoplay();
 });
 
@@ -270,176 +266,6 @@ function initContactForm() {
   }
 }
 
-/**
- * Shopping Cart Functionality
- */
-function initCart() {
-  const cartToggle = document.getElementById('cartToggle');
-  const cartClose = document.getElementById('cartClose');
-  const cartWidget = document.getElementById('cartWidget');
-  const cartOverlay = document.getElementById('cartOverlay');
-  const cartCount = document.getElementById('cartCount');
-  const cartItems = document.getElementById('cartItems');
-  const cartTotal = document.getElementById('cartTotal');
-
-  // Toggle cart visibility
-  function openCart() {
-    cartWidget.classList.add('open');
-    cartOverlay.classList.add('open');
-  }
-
-  function closeCart() {
-    cartWidget.classList.remove('open');
-    cartOverlay.classList.remove('open');
-  }
-
-  if (cartToggle) {
-    cartToggle.addEventListener('click', openCart);
-  }
-
-  if (cartClose) {
-    cartClose.addEventListener('click', closeCart);
-  }
-
-  if (cartOverlay) {
-    cartOverlay.addEventListener('click', closeCart);
-  }
-
-  // Close cart with Escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeCart();
-    }
-  });
-
-  // Add to cart functionality
-  document.querySelectorAll('.product-action').forEach(button => {
-    button.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-
-      const card = button.closest('.product-card');
-      const productId = card.dataset.productId;
-      const productName = card.dataset.productName;
-      const productPrice = parseFloat(card.dataset.productPrice);
-      const productImage = card.dataset.productImage;
-
-      addToCart({
-        id: productId,
-        name: productName,
-        price: productPrice,
-        image: productImage
-      });
-
-      // Button animation
-      button.style.transform = 'scale(0.9) rotate(90deg)';
-      setTimeout(() => {
-        button.style.transform = '';
-      }, 300);
-
-      showNotification(`${productName} added to cart!`, 'success');
-
-      // Open cart after adding
-      setTimeout(() => {
-        openCart();
-      }, 500);
-    });
-  });
-
-  // Add item to cart
-  function addToCart(product) {
-    const existingItem = cart.find(item => item.id === product.id);
-
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      cart.push({
-        ...product,
-        quantity: 1
-      });
-    }
-
-    updateCartUI();
-  }
-
-  // Update cart quantity
-  window.updateQuantity = function (productId, change) {
-    const item = cart.find(item => item.id === productId);
-
-    if (item) {
-      item.quantity += change;
-
-      if (item.quantity <= 0) {
-        removeFromCart(productId);
-      } else {
-        updateCartUI();
-      }
-    }
-  };
-
-  // Remove item from cart
-  window.removeFromCart = function (productId) {
-    cart = cart.filter(item => item.id !== productId);
-    updateCartUI();
-  };
-
-  // Update cart UI
-  function updateCartUI() {
-    // Update cart count
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    cartCount.textContent = totalItems;
-
-    if (totalItems > 0) {
-      cartCount.classList.add('visible');
-    } else {
-      cartCount.classList.remove('visible');
-    }
-
-    // Update cart items display
-    if (cart.length === 0) {
-      cartItems.innerHTML = '<p class="cart-empty">Your cart is empty</p>';
-    } else {
-      cartItems.innerHTML = cart.map(item => `
-        <div class="cart-item">
-          <img src="${item.image}" alt="${item.name}" class="cart-item-image">
-          <div class="cart-item-info">
-            <div class="cart-item-name">${item.name}</div>
-            <div class="cart-item-price">$${item.price.toFixed(2)}</div>
-          </div>
-          <div class="cart-item-controls">
-            <div class="cart-item-quantity">
-              <button class="quantity-btn" onclick="updateQuantity('${item.id}', -1)">-</button>
-              <span class="quantity-value">${item.quantity}</span>
-              <button class="quantity-btn" onclick="updateQuantity('${item.id}', 1)">+</button>
-            </div>
-            <button class="cart-item-remove" onclick="removeFromCart('${item.id}')">Remove</button>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    // Update total
-    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    cartTotal.textContent = `$${total.toFixed(2)}`;
-  }
-
-  // Checkout functionality
-  const checkoutBtn = document.querySelector('.cart-checkout');
-  if (checkoutBtn) {
-    checkoutBtn.addEventListener('click', () => {
-      if (cart.length === 0) {
-        showNotification('Your cart is empty!', 'error');
-        return;
-      }
-
-      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-      showNotification(`Order placed! Total: $${total.toFixed(2)}`, 'success');
-      cart = [];
-      updateCartUI();
-      closeCart();
-    });
-  }
-}
 
 /**
  * Show Notification Toast
