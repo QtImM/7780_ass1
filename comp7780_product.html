@@ -687,6 +687,7 @@
 							   price: '$35',
 							   priceValue: 35,
 							   description: 'Vibrant oolong tea blend with fresh citrus and passion fruit. Low sugar, vitamin-rich and refreshing.',
+							   image: 'homepage.test/image/Page 2/sunny_detox.jpg'
 						   })">
 								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
 									stroke-linecap="round" stroke-linejoin="round">
@@ -715,7 +716,8 @@
 								   price: '$42',
 								   priceValue: 42,
 								   description: 'Premium single-origin coffee blended with cold-pressed almond milk. Luxuriously smooth with artisanal latte art.',
-								   allergens: 'Allergens: Tree Nuts'
+								   allergens: 'Allergens: Tree Nuts',
+								   image: 'homepage.test/image/Page 2/almond_latte.jpg'
 							   })">
 								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
 									stroke-linecap="round" stroke-linejoin="round">
@@ -1105,6 +1107,7 @@
 		const addToOrderBtn = document.getElementById('addToOrderBtn');
 
 		let basePrice = 8.75;
+		let currentProductImage = '';
 
 		function openProductModal(productData) {
 			if (productData) {
@@ -1113,6 +1116,8 @@
 				document.getElementById('productDesc').textContent = productData.description;
 				document.getElementById('productAllergens').textContent = productData.allergens;
 				basePrice = parseFloat(productData.priceValue);
+				// Use provided image or fallback to the default (Pistachio Shake) if not provided
+				currentProductImage = productData.image || 'homepage.test/image/Page 2/drink sku without straws .jpeg';
 				qtyInput.value = 1;
 				updatePrice();
 
@@ -1234,7 +1239,7 @@
 				totalPrice: (basePrice * parseInt(qtyInput.value)).toFixed(2),
 				toppings: document.querySelector('input[name="toppings"]:checked').value,
 				milk: document.querySelector('input[name="milk"]:checked').value,
-				productImage: 'homepage.test/image/Page 2/drink sku without straws .jpeg'
+				productImage: currentProductImage
 			};
 
 			addToCart(selections);
