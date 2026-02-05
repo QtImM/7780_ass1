@@ -520,7 +520,7 @@
 				<a href="homepage.test/index.html#about" class="nav-link">About us</a>
 			</li>
 			<li>
-				<a href="homepage.test/index.html#contact" class="nav-link">Contact</a>
+				<a href="#contact" class="nav-link" onclick="scrollToContact(event)">Contact</a>
 			</li>
 		</ul>
 
@@ -733,7 +733,7 @@
 	</section>
 
 	<!-- Footer -->
-	<footer class="footer">
+	<footer class="footer" id="contact">
 		<div class="footer-container">
 			<!-- Column 1: Quick Links & Follow Us -->
 			<div class="footer-section">
@@ -1251,6 +1251,18 @@
 
 		// Sync cart badge and list on load (e.g. when coming from homepage)
 		updateCartUI();
+
+		// --- Scroll to Contact Function ---
+		function scrollToContact(event) {
+			event.preventDefault();
+			const contactElement = document.getElementById('contact');
+			if (contactElement) {
+				contactElement.scrollIntoView({ behavior: 'smooth' });
+			}
+		}
+
+		// Expose for global use
+		window.scrollToContact = scrollToContact;
 
 		// --- Navbar Scroll Effect ---
 		function initNavbar() {
