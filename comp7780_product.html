@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!--    Comp7780 
+	Author: Hans Yip
+	Date:  1/8/2019
+-->
+	<title>Menu | Pro-Fit Bakehouse</title>
+
+	<!-- Google Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+		rel="stylesheet">
+
+	<!-- Styles -->
+	<link rel="stylesheet" href="homepage/index.css">
+
+	<style>
+		/* Override or additional styles for this page */
+
+		/* Product 页导航栏文字统一使用 rgb(74, 74, 74) */
+		.navbar .nav-link,
+		.navbar .nav-link.active,
+		.navbar .nav-link:visited {
+			color: rgb(74, 74, 74);
+		}
+
+		.navbar .nav-link:hover {
+			color: rgb(74, 74, 74);
+			opacity: 0.8;
+		}
+
+		.nav-icons .nav-icon-btn svg {
+			color: rgb(74, 74, 74);
+			stroke: rgb(74, 74, 74);
+		}
+
+		/* Products Category Styles */
+		.products-category {
+			margin-bottom: 3rem;
+		}
+
+		.products-category h3 {
+			font-size: 2.2rem;
+			font-weight: 700;
+			color: #8B5A2B;
+			margin-bottom: 0;
+			text-align: left;
+			padding-left: calc((100% - 1200px) / 2);
+		}
+
+		.products-category .section-subtitle {
+			font-size: 1.1rem;
+			color: #ebb13b;
+			font-weight: 500;
+			margin-bottom: 2rem !important;
+			margin-top: 0 !important;
+			margin-left: 0 !important;
+			margin-right: 0 !important;
+			text-align: left;
+			max-width: none;
+			padding-left: calc((100% - 1200px) / 2);
+		}
+
+		/* Ensure modal styles work */
+		.modal-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.5);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			z-index: 2000;
+			/* Higher than navbar */
+			display: none;
+			padding: 2rem 0;
+			overflow-y: auto;
+		}
+
+		.modal-overlay.active {
+			display: flex;
+		}
+
+		.modal-content {
+			background: white;
+			border-radius: 20px;
+			width: 90%;
+			max-width: 500px;
+			padding: 2rem;
+			box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+			position: relative;
+			animation: slideUp 0.3s ease-out;
+			margin: auto;
+		}
+
+		@keyframes slideUp {
+			from {
+				transform: translateY(30px);
+				opacity: 0;
+			}
+
+			to {
+				transform: translateY(0);
+				opacity: 1;
+			}
+		}
+
+		.modal-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 1.5rem;
+		}
+
+		.modal-title {
+			color: #8B5A2B;
+			font-size: 1.8rem;
+			font-weight: 700;
+			padding: 0;
+		}
+
+		.modal-close {
+			background: none;
+			border: 2px solid #8B5A2B;
+			color: #8B5A2B;
+			font-size: 1.5rem;
+			cursor: pointer;
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: all 0.3s ease;
+		}
+
+		.modal-close:hover {
+			background: rgba(139, 90, 43, 0.1);
+			transform: scale(1.1);
+		}
+
+		.product-price {
+			font-size: 1.3rem;
+			font-weight: 600;
+			margin-bottom: 1rem;
+			color: #8B5A2B;
+		}
+
+		.product-description {
+			font-size: 0.9rem;
+			line-height: 1.6;
+			margin-bottom: 0.5rem;
+			opacity: 0.8;
+			color: #555;
+		}
+
+		.product-allergens {
+			font-size: 0.85rem;
+			margin-top: 1rem;
+			padding-top: 1rem;
+			border-top: 1px solid rgba(0, 0, 0, 0.1);
+			font-style: italic;
+			color: #666;
+		}
+
+		.option-section {
+			margin-bottom: 2rem;
+		}
+
+		.option-title {
+			font-size: 1.1rem;
+			font-weight: 600;
+			margin-bottom: 1rem;
+			color: #8B5A2B;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.option-tag {
+			background: rgba(139, 90, 43, 0.1);
+			padding: 0.3rem 0.8rem;
+			border-radius: 20px;
+			font-size: 0.8rem;
+			font-weight: 500;
+			color: #8B5A2B;
+		}
+
+		.option-list {
+			display: flex;
+			flex-direction: column;
+			gap: 0.8rem;
+		}
+
+		.option-item {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+		}
+
+		.option-item input[type="radio"],
+		.option-item input[type="checkbox"] {
+			width: 18px;
+			height: 18px;
+			cursor: pointer;
+			accent-color: #8B5A2B;
+		}
+
+		.option-item label {
+			cursor: pointer;
+			font-size: 0.95rem;
+			flex: 1;
+			color: #333;
+		}
+
+		.quantity-section {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+			margin-bottom: 1.5rem;
+		}
+
+		.quantity-label {
+			font-weight: 600;
+			color: #333;
+		}
+
+		.quantity-controls {
+			display: flex;
+			align-items: center;
+			border: 2px solid #8B5A2B;
+			border-radius: 6px;
+			background: rgba(139, 90, 43, 0.05);
+		}
+
+		.quantity-btn {
+			background: none;
+			border: none;
+			color: #8B5A2B;
+			font-size: 1.2rem;
+			padding: 0.5rem 0.8rem;
+			cursor: pointer;
+			transition: all 0.2s ease;
+		}
+
+		.quantity-btn:hover {
+			background: rgba(139, 90, 43, 0.1);
+		}
+
+		.quantity-input {
+			background: none;
+			border: none;
+			color: #333;
+			text-align: center;
+			width: 40px;
+			font-size: 1rem;
+			font-weight: 600;
+		}
+
+		.quantity-input::-webkit-outer-spin-button,
+		.quantity-input::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+
+		.modal-footer {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.btn-add-order {
+			background: #8B5A2B;
+			color: white;
+			border: none;
+			padding: 0.8rem 1.5rem;
+			border-radius: 6px;
+			cursor: pointer;
+			font-size: 1rem;
+			font-weight: 700;
+			width: 100%;
+			transition: all 0.3s ease;
+		}
+
+		.btn-add-order:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 5px 15px rgba(139, 90, 43, 0.3);
+		}
+
+		/* --- Floating Cart Widget Styles --- */
+		.cart-widget {
+			position: fixed;
+			bottom: 30px;
+			right: 30px;
+			width: 350px;
+			background: white;
+			border-radius: 20px;
+			box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+			z-index: 1000;
+			transform: translateY(20px);
+			opacity: 0;
+			pointer-events: none;
+			transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+			display: flex;
+			flex-direction: column;
+			max-height: calc(100vh - 150px);
+		}
+
+		.cart-widget.open {
+			transform: translateY(0);
+			opacity: 1;
+			pointer-events: all;
+		}
+
+		.cart-header {
+			padding: 1.2rem;
+			border-bottom: 1px solid #eee;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			background: #fdfdfd;
+			border-radius: 20px 20px 0 0;
+		}
+
+		.cart-header h3 {
+			font-size: 1.1rem;
+			margin: 0;
+			color: #333;
+		}
+
+		.cart-close {
+			background: none;
+			border: none;
+			cursor: pointer;
+			color: #999;
+			padding: 5px;
+			border-radius: 50%;
+			transition: all 0.2s ease;
+			display: flex;
+		}
+
+		.cart-close:hover {
+			background: #eee;
+			color: #333;
+		}
+
+		.cart-items {
+			padding: 1rem;
+			overflow-y: auto;
+			flex: 1;
+		}
+
+		.cart-empty {
+			text-align: center;
+			color: #999;
+			padding: 2rem 0;
+			font-size: 0.95rem;
+		}
+
+		.cart-item {
+			display: flex;
+			gap: 1rem;
+			margin-bottom: 1rem;
+			padding-bottom: 1rem;
+			border-bottom: 1px solid #f5f5f5;
+		}
+
+		.cart-item:last-child {
+			margin-bottom: 0;
+			padding-bottom: 0;
+			border-bottom: none;
+		}
+
+		.cart-item-image {
+			width: 60px;
+			height: 60px;
+			border-radius: 8px;
+			object-fit: cover;
+		}
+
+		.cart-item-info {
+			flex: 1;
+		}
+
+		.cart-item-name {
+			font-size: 0.95rem;
+			font-weight: 500;
+			color: #333;
+			margin-bottom: 0.25rem;
+		}
+
+		.cart-item-controls {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-top: 0.5rem;
+		}
+
+		.cart-item-quantity {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			background: #f5f5f5;
+			border-radius: 4px;
+			padding: 2px;
+		}
+
+		.cart-item-quantity .quantity-btn {
+			padding: 0 8px;
+			font-size: 1rem;
+		}
+
+		.quantity-value {
+			font-size: 0.9rem;
+			font-weight: 600;
+			width: 20px;
+			text-align: center;
+		}
+
+		.cart-item-price {
+			font-weight: 600;
+			color: #8B5A2B;
+			font-size: 0.95rem;
+		}
+
+		.cart-footer {
+			padding: 1.2rem;
+			border-top: 1px solid #eee;
+			background: #fdfdfd;
+			border-radius: 0 0 20px 20px;
+		}
+
+		.cart-total {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 1rem;
+			font-weight: 600;
+			font-size: 1.1rem;
+		}
+
+		.btn-checkout {
+			width: 100%;
+			background: #8B5A2B;
+			color: white;
+			border: none;
+			padding: 1rem;
+			border-radius: 12px;
+			font-weight: 600;
+			cursor: pointer;
+			transition: all 0.2s ease;
+		}
+
+		.btn-checkout:hover {
+			background: #6e4620;
+			transform: translateY(-2px);
+		}
+
+		/* Notification Toast */
+		.notification {
+			position: fixed;
+			bottom: 30px;
+			left: 30px;
+			padding: 1rem 1.5rem;
+			background: #8B5A2B;
+			color: white;
+			border-radius: 10px;
+			box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+			z-index: 2000;
+			animation: slideInLeft 0.3s ease;
+		}
+
+		@keyframes slideInLeft {
+			from {
+				transform: translateX(-100%);
+				opacity: 0;
+			}
+
+			to {
+				transform: translateX(0);
+				opacity: 1;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- Navigation（与首页结构保持一致） -->
+	<nav class="navbar" id="navbar">
+		<div class="navbar-top-bar">
+			<div class="team-info">Team Name: Pro-Fit Team &nbsp; Team Number: 12</div>
+		</div>
+		<!-- Left Navigation Links -->
+		<ul class="nav-links nav-links-left" id="navLinksLeft">
+			<li>
+				<a href="homepage/index.html#home" class="nav-link">Home</a>
+			</li>
+			<li>
+				<a href="#products" class="nav-link active">Menus</a>
+			</li>
+		</ul>
+
+		<!-- Center Logo -->
+		<a href="homepage/index.html#home" class="navbar-logo">
+			<img src="homepage/image/Page%201/LOGO4.png" alt="Pro-Fit Bakehouse Logo">
+		</a>
+
+		<!-- Right Navigation Links -->
+		<ul class="nav-links nav-links-right" id="navLinksRight">
+			<li>
+				<a href="homepage/index.html#about" class="nav-link">About us</a>
+			</li>
+			<li>
+				<a href="#contact" class="nav-link" onclick="scrollToContact(event)">Contact</a>
+			</li>
+		</ul>
+
+		<!-- Right Side Icons -->
+		<div class="nav-icons">
+			<button class="nav-icon-btn" id="searchToggle" aria-label="Search">
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<circle cx="11" cy="11" r="8"></circle>
+					<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+				</svg>
+			</button>
+			<button class="nav-icon-btn" id="profileToggle" aria-label="Profile">
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+					<circle cx="12" cy="7" r="4"></circle>
+				</svg>
+			</button>
+			<button class="nav-icon-btn nav-cart-btn" id="cartToggle" aria-label="Shopping Cart">
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+					<circle cx="9" cy="21" r="1"></circle>
+					<circle cx="20" cy="21" r="1"></circle>
+					<path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+				</svg>
+				<span class="cart-count" id="cartCount">0</span>
+			</button>
+		</div>
+
+		<div class="mobile-toggle" id="mobileToggle">
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</nav>
+
+	<!-- Products Section: Pastries and Drinks Categories -->
+	<section class="products" id="products" style="padding-top: 200px; scroll-margin-top: 200px;">
+		<!-- Pastries 板块 -->
+		<div class="products-category">
+			<h3>Pastries</h3>
+			<p class="section-subtitle">Premium, Nutritious, Reduced-Sugar Bakes</p>
+			<div class="products-grid">
+				<div class="product-card" data-product-id="1" data-product-name="Artisan Protein Bread"
+					data-product-price="32" data-product-image="homepage/image/Page 2/bread sku alternative.jpg">
+					<div class="product-image">
+						<img src="homepage/image/Page 2/bread sku alternative.jpg" alt="Artisan Protein Bread">
+						<span class="product-badge">Best Seller</span>
+					</div>
+					<div class="product-content">
+						<h3 class="product-title">Artisan Protein Bread</h3>
+						<p class="product-description">Handcrafted sourdough enriched with plant proteins. Perfect for
+							your healthy lifestyle.</p>
+						<div class="product-footer">
+							<span class="product-price">$32 <span class="product-unit">/ 1 piece</span></span>
+							<button class="product-action" aria-label="Add to cart" onclick="addToCartFromCard(this)">
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+									stroke-linecap="round" stroke-linejoin="round">
+									<line x1="12" y1="5" x2="12" y2="19"></line>
+									<line x1="5" y1="12" x2="19" y2="12"></line>
+								</svg>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="product-card" data-product-id="3" data-product-name="Portuguese Egg Tarts"
+					data-product-price="58"
+					data-product-image="homepage/image/Page 2/egg tart alternertive sku without logo .png">
+					<div class="product-image">
+						<img src="homepage/image/Page 2/egg tart alternertive sku without logo .png"
+							alt="Portuguese Egg Tarts">
+						<span class="product-badge">Popular</span>
+					</div>
+					<div class="product-content">
+						<h3 class="product-title">Portuguese Egg Tarts</h3>
+						<p class="product-description">Golden, flaky perfection with reduced sugar. Guilt-free
+							indulgence in every bite.</p>
+						<div class="product-footer">
+							<span class="product-price">$58 <span class="product-unit">/ 6 pieces</span></span>
+							<button class="product-action" aria-label="Add to cart" onclick="addToCartFromCard(this)">
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+									stroke-linecap="round" stroke-linejoin="round">
+									<line x1="12" y1="5" x2="12" y2="19"></line>
+									<line x1="5" y1="12" x2="19" y2="12"></line>
+								</svg>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="product-card" data-product-id="4" data-product-name="Pro-Fit Pistachio Tart"
+					data-product-price="45" data-product-image="homepage/image/Page 2/pastachio tart.jpg">
+					<div class="product-image">
+						<img src="homepage/image/Page 2/pastachio tart.jpg" alt="Pro-Fit Pistachio Tart">
+						<span class="product-badge">Artisanal</span>
+					</div>
+					<div class="product-content">
+						<h3 class="product-title">Pro-Fit Pistachio Tart</h3>
+						<p class="product-description">Crisp puff pastry with smooth pistachio filling. Sophistication
+							in every bite.</p>
+						<!-- <p class="product-tags" style="font-size: 0.8rem; color: #8B5A2B; margin-top: 0.5rem; font-weight: 500;">Artisanal | Premium Nuts | Luxury Texture</p> -->
+						<div class="product-footer">
+							<span class="product-price">$45 <span class="product-unit">/ 1 piece</span></span>
+							<button class="product-action" aria-label="Add to cart" onclick="addToCartFromCard(this)">
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+									stroke-linecap="round" stroke-linejoin="round">
+									<line x1="12" y1="5" x2="12" y2="19"></line>
+									<line x1="5" y1="12" x2="19" y2="12"></line>
+								</svg>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Drinks 板块 -->
+		<div class="products-category">
+			<h3>Drinks</h3>
+			<p class="section-subtitle">Clean, Nutritious Sips with Real Fruits, Nuts & Milk</p>
+			<div class="products-grid">
+				<div class="product-card" data-product-id="2" data-product-name="Pistachio Protein Shake"
+					data-product-price="48"
+					data-product-image="homepage/image/Page 2/drink sku without straws .jpeg">
+					<div class="product-image">
+						<img src="homepage/image/Page 2/drink sku without straws .jpeg"
+							alt="Pistachio Protein Shake">
+						<span class="product-badge">New</span>
+					</div>
+					<div class="product-content">
+						<h3 class="product-title">Pistachio Protein Shake</h3>
+						<p class="product-description">Creamy, dreamy, and packed with 25g of protein. Your post-workout
+							reward.</p>
+						<div class="product-footer">
+							<span class="product-price">$48 <span class="product-unit">/ 1 cup</span></span>
+							<button class="product-action drink-action" aria-label="Add to cart" onclick="openProductModal({
+							   name: 'Pistachio Protein Shake',
+							   price: '$48',
+							   priceValue: 48,
+							   description: 'Creamy, dreamy, and packed with 25g of protein. Your post-workout reward.',
+							   allergens: 'Allergens: Tree Nuts, Dairy'
+						   })">
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+									stroke-linecap="round" stroke-linejoin="round">
+									<line x1="12" y1="5" x2="12" y2="19"></line>
+									<line x1="5" y1="12" x2="19" y2="12"></line>
+								</svg>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="product-card" data-product-id="5" data-product-name="Sunny Detox" data-product-price="35"
+					data-product-image="homepage/image/Page 2/sunny_detox.jpg">
+					<div class="product-image">
+						<img src="homepage/image/Page 2/sunny_detox.jpg" alt="Sunny Detox">
+						<span class="product-badge">Refreshing</span>
+					</div>
+					<div class="product-content">
+						<h3 class="product-title">Sunny Detox</h3>
+						<p class="product-description">Vibrant oolong tea blend with fresh citrus and passion fruit. Low
+							sugar, vitamin-rich and refreshing.</p>
+						<!-- <p class="product-tags" style="font-size: 0.8rem; color: #8B5A2B; margin-top: 0.5rem; font-weight: 500;">Low Sugar | Vitamin-Rich | All-Natural Ingredients</p> -->
+						<div class="product-footer">
+							<span class="product-price">$35 <span class="product-unit">/ 1 cup</span></span>
+							<button class="product-action drink-action" aria-label="Add to cart" onclick="openProductModal({
+							   name: 'Sunny Detox',
+							   price: '$35',
+							   priceValue: 35,
+							   description: 'Vibrant oolong tea blend with fresh citrus and passion fruit. Low sugar, vitamin-rich and refreshing.',
+							   image: 'homepage/image/Page 2/sunny_detox.jpg'
+						   })">
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+									stroke-linecap="round" stroke-linejoin="round">
+									<line x1="12" y1="5" x2="12" y2="19"></line>
+									<line x1="5" y1="12" x2="19" y2="12"></line>
+								</svg>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="product-card" data-product-id="6" data-product-name="Signature Almond Latte"
+					data-product-price="42" data-product-image="homepage/image/Page 2/almond_latte.jpg">
+					<div class="product-image">
+						<img src="homepage/image/Page 2/almond_latte.jpg" alt="Signature Almond Latte">
+						<span class="product-badge">Premium</span>
+					</div>
+					<div class="product-content">
+						<h3 class="product-title">Signature Almond Latte</h3>
+						<p class="product-description">Premium single-origin coffee blended with cold-pressed almond
+							milk. Luxuriously smooth with artisanal latte art.</p>
+						<!-- <p class="product-tags" style="font-size: 0.8rem; color: #8B5A2B; margin-top: 0.5rem; font-weight: 500;">Premium Coffee | Cold-Pressed Almond Milk | Artisanal Latte Art</p> -->
+						<div class="product-footer">
+							<span class="product-price">$42 <span class="product-unit">/ 1 cup</span></span>
+							<button class="product-action drink-action" aria-label="Add to cart" onclick="openProductModal({
+								   name: 'Signature Almond Latte',
+								   price: '$42',
+								   priceValue: 42,
+								   description: 'Premium single-origin coffee blended with cold-pressed almond milk. Luxuriously smooth with artisanal latte art.',
+								   allergens: 'Allergens: Tree Nuts',
+								   image: 'homepage/image/Page 2/almond_latte.jpg'
+							   })">
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+									stroke-linecap="round" stroke-linejoin="round">
+									<line x1="12" y1="5" x2="12" y2="19"></line>
+									<line x1="5" y1="12" x2="19" y2="12"></line>
+								</svg>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer class="footer" id="contact">
+		<div class="footer-container">
+			<!-- Column 1: Quick Links & Follow Us -->
+			<div class="footer-section">
+				<h4>Navigation</h4>
+				<ul class="footer-links">
+					<li><a href="homepage/index.html">Home</a></li>
+					<li><a href="#">Menus</a></li>
+					<li><a href="homepage/index.html#about">About Us</a></li>
+				</ul>
+
+				<h4 style="margin-top: 2rem;">Follow Us</h4>
+				<div class="social-links">
+					<a href="#" class="social-link" aria-label="Instagram">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+							<path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+							<line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+						</svg>
+					</a>
+					<a href="#" class="social-link" aria-label="Facebook">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z">
+							</path>
+						</svg>
+					</a>
+					<a href="#" class="social-link" aria-label="Twitter">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<path
+								d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+							</path>
+						</svg>
+					</a>
+				</div>
+			</div>
+
+			<!-- Column 2: Popular -->
+			<div class="footer-section">
+				<h4>Popular</h4>
+				<ul class="footer-links">
+					<li><a href="#">Artisan Protein Bread</a></li>
+					<li><a href="#">Pistachio Protein Shake</a></li>
+					<li><a href="#">Portuguese Egg Tarts</a></li>
+				</ul>
+			</div>
+
+			<!-- Column 3: Pro-Fit Team -->
+			<div class="footer-section team-section" id="team">
+				<h4>Pro-Fit Team</h4>
+				<div class="team-grid">
+					<div class="team-member">
+						<span class="member-name">Ke Linyao</span>
+						<span class="member-id">25407694</span>
+						<span class="member-role">Project Manager</span>
+					</div>
+					<div class="team-member">
+						<span class="member-name">Xiao Manyi</span>
+						<span class="member-id">25447416</span>
+						<span class="member-role">Analyst</span>
+					</div>
+					<div class="team-member">
+						<span class="member-name">Qin Tian</span>
+						<span class="member-id">25409182</span>
+						<span class="member-role">Developer</span>
+					</div>
+					<div class="team-member">
+						<span class="member-name">Huo Weijia</span>
+						<span class="member-id">25407651</span>
+						<span class="member-role">Developer</span>
+					</div>
+					<div class="team-member">
+						<span class="member-name">Zeng Yongyi</span>
+						<span class="member-id">25419811</span>
+						<span class="member-role">Tester</span>
+					</div>
+					<div class="team-member">
+						<span class="member-name">Rao Jianan</span>
+						<span class="member-id">25469606</span>
+						<span class="member-role">Tester</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<p>&copy; 2026 COMP7780 Pro-Fit Bakehouse. All rights reserved. | Made with ❤️ and protein</p>
+		</div>
+	</footer>
+
+	<!-- Floating Cart Widget -->
+	<div class="cart-widget" id="cartWidget">
+		<div class="cart-header">
+			<h3>Your Cart</h3>
+			<button class="cart-close" id="cartClose" aria-label="Close cart">
+				<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+					<line x1="18" y1="6" x2="6" y2="18"></line>
+					<line x1="6" y1="6" x2="18" y2="18"></line>
+				</svg>
+			</button>
+		</div>
+		<div class="cart-items" id="cartItems">
+			<p class="cart-empty">Your cart is empty</p>
+		</div>
+		<div class="cart-footer">
+			<div class="cart-total">
+				<span>Total:</span>
+				<span id="cartTotal">HKD 0.00</span>
+			</div>
+			<button class="btn btn-primary cart-checkout">Checkout</button>
+		</div>
+	</div>
+	<div class="cart-overlay" id="cartOverlay"></div>
+
+	<!-- Product Modal Overlay -->
+	<div class="modal-overlay" id="productModal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2 class="modal-title" id="productName">Pistachio Protein Shake</h2>
+				<button class="modal-close" id="modalClose">&times;</button>
+			</div>
+
+			<div class="modal-body">
+				<!-- Product Info -->
+				<div class="product-info">
+					<div class="product-price" id="productPrice">CAD$8.75</div>
+					<p class="product-description" id="productDesc">
+						Creamy, dreamy, and packed with 25g of protein. Your post-workout reward.
+					</p>
+					<p class="product-allergens" id="productAllergens">
+						Allergens: dairy, gluten
+					</p>
+				</div>
+
+				<!-- Toppings Option -->
+				<div class="option-section">
+					<div class="option-title">
+						Toppings
+						<span class="option-tag">Optional</span>
+					</div>
+					<div class="option-list">
+						<div class="option-item">
+							<input type="radio" id="topping-pistachio" name="toppings" value="Pistachio" checked>
+							<label for="topping-pistachio">Pistachio (default this)</label>
+						</div>
+						<div class="option-item">
+							<input type="radio" id="topping-almond" name="toppings" value="Almond">
+							<label for="topping-almond">Almond</label>
+						</div>
+						<div class="option-item">
+							<input type="radio" id="topping-none" name="toppings" value="None">
+							<label for="topping-none">None</label>
+						</div>
+					</div>
+				</div>
+
+				<!-- Drink Options (Alternative Milk) -->
+				<div class="option-section">
+					<div class="option-title">
+						Alternative Milk
+						<span class="option-tag">Optional</span>
+					</div>
+					<div class="option-list">
+						<div class="option-item">
+							<input type="radio" id="milk-fresh" name="milk" value="Fresh Milk" checked>
+							<label for="milk-fresh">Fresh Milk (default this)</label>
+						</div>
+						<div class="option-item">
+							<input type="radio" id="milk-almond" name="milk" value="Almond Milk">
+							<label for="milk-almond">Almond Milk</label>
+						</div>
+						<div class="option-item">
+							<input type="radio" id="milk-oat" name="milk" value="Oat Milk">
+							<label for="milk-oat">Oat Milk</label>
+						</div>
+					</div>
+				</div>
+
+				<!-- Quantity Section -->
+				<div class="quantity-section">
+					<span class="quantity-label">Quantity:</span>
+					<div class="quantity-controls">
+						<button class="quantity-btn" id="qtyMinus">−</button>
+						<input type="number" class="quantity-input" id="qtyInput" value="1" min="1">
+						<button class="quantity-btn" id="qtyPlus">+</button>
+					</div>
+				</div>
+
+				<!-- Footer Buttons -->
+				<button class="btn-add-order" id="addToOrderBtn">
+					Add to order <span id="orderPrice">HKD 8.75</span>
+				</button>
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<script>
+		// --- Cart Logic (synced with index via localStorage) ---
+		const CART_STORAGE_KEY = 'profit_cart';
+		let cart = JSON.parse(localStorage.getItem(CART_STORAGE_KEY) || '[]');
+		const cartWidget = document.getElementById('cartWidget');
+		const cartOverlay = document.getElementById('cartOverlay');
+		const cartToggle = document.getElementById('cartToggle');
+		const cartClose = document.getElementById('cartClose');
+		const cartCount = document.getElementById('cartCount');
+		const cartItemsContainer = document.getElementById('cartItems');
+
+		function addToCart(product) {
+			const existingProduct = cart.find(item =>
+				item.productName === product.productName &&
+				(item.toppings || 'None') === (product.toppings || 'None') &&
+				(item.milk || 'None') === (product.milk || 'None')
+			);
+			if (existingProduct) {
+				existingProduct.quantity += product.quantity;
+				existingProduct.totalPrice = (existingProduct.productPrice * existingProduct.quantity).toFixed(2);
+			} else {
+				cart.push(product);
+			}
+			updateCartUI();
+			openCart();
+			showNotification(`${product.productName} added to cart!`, 'success');
+		}
+
+		function updateCartUI() {
+			const totalQty = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+			cartCount.textContent = totalQty;
+			if (totalQty > 0) {
+				cartCount.classList.add('visible');
+			} else {
+				cartCount.classList.remove('visible');
+			}
+			if (cart.length === 0) {
+				cartItemsContainer.innerHTML = '<p class="cart-empty">Your cart is empty</p>';
+			} else {
+				let html = '';
+				cart.forEach((item, index) => {
+					const opts = [];
+					if (item.toppings && item.toppings !== 'None') opts.push('Toppings: ' + item.toppings);
+					if (item.milk && item.milk !== 'None') opts.push('Milk: ' + item.milk);
+					html += `
+						<div class="cart-item">
+							<img src="${item.productImage}" alt="${item.productName}" class="cart-item-image">
+							<div class="cart-item-info">
+								<div class="cart-item-name">${item.productName}</div>
+								${opts.length ? '<div class="cart-item-options" style="font-size:0.85rem;color:#666;margin-bottom:6px;">' + opts.join(' · ') + '</div>' : ''}
+								<div class="cart-item-controls">
+									<div class="cart-item-quantity">
+										<button type="button" class="quantity-btn" onclick="decreaseQty(${index})" aria-label="Decrease">−</button>
+										<span class="quantity-value">${item.quantity}</span>
+										<button type="button" class="quantity-btn" onclick="increaseQty(${index})" aria-label="Increase">+</button>
+									</div>
+									<span class="cart-item-price">$${item.totalPrice}</span>
+								</div>
+							</div>
+						</div>
+					`;
+				});
+				cartItemsContainer.innerHTML = html;
+			}
+			const total = cart.reduce((sum, item) => sum + parseFloat(item.totalPrice), 0).toFixed(2);
+			document.getElementById('cartTotal').textContent = 'HKD ' + total;
+			try { localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart)); } catch (e) { }
+		}
+
+		function increaseQty(index) {
+			if (cart[index]) {
+				cart[index].quantity += 1;
+				cart[index].totalPrice = (cart[index].productPrice * cart[index].quantity).toFixed(2);
+				updateCartUI();
+			}
+		}
+		function decreaseQty(index) {
+			if (!cart[index]) return;
+			if (cart[index].quantity > 1) {
+				cart[index].quantity -= 1;
+				cart[index].totalPrice = (cart[index].productPrice * cart[index].quantity).toFixed(2);
+			} else {
+				cart.splice(index, 1);
+			}
+			updateCartUI();
+		}
+
+		function openCart() {
+			cartWidget.classList.add('open');
+			cartOverlay.classList.add('open');
+		}
+
+		function closeCart() {
+			cartWidget.classList.remove('open');
+			cartOverlay.classList.remove('open');
+		}
+
+		function showNotification(message, type = 'info') {
+			// Remove existing notifications
+			const existing = document.querySelector('.notification');
+			if (existing) existing.remove();
+
+			// Create notification element
+			const notification = document.createElement('div');
+			notification.className = `notification notification-${type}`;
+			notification.innerHTML = `
+				<span>${message}</span>
+				<button onclick="this.parentElement.remove()" aria-label="Close">&times;</button>
+			`;
+
+			// Add styles
+			notification.style.cssText = `
+				position: fixed;
+				bottom: 30px;
+				left: 30px;
+				padding: 16px 24px;
+				background: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#F44336' : '#8B5A2B'};
+				color: white;
+				border-radius: 12px;
+				box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+				display: flex;
+				align-items: center;
+				gap: 16px;
+				font-size: 0.95rem;
+				z-index: 9999;
+				animation: notificationSlideIn 0.3s ease;
+			`;
+
+			// Add animation keyframes
+			if (!document.getElementById('notification-styles')) {
+				const style = document.createElement('style');
+				style.id = 'notification-styles';
+				style.textContent = `
+				@keyframes notificationSlideIn {
+					from { transform: translateX(-100%); opacity: 0; }
+					to { transform: translateX(0); opacity: 1; }
+				}
+				`;
+				document.head.appendChild(style);
+			}
+
+			document.body.appendChild(notification);
+
+			// Auto remove after 4 seconds
+			setTimeout(() => {
+				notification.style.animation = 'notificationSlideIn 0.3s ease reverse';
+				setTimeout(() => notification.remove(), 300);
+			}, 4000);
+		}
+
+		cartToggle.addEventListener('click', openCart);
+		cartClose.addEventListener('click', closeCart);
+		cartOverlay.addEventListener('click', closeCart);
+
+		// Helper for adding simple products
+		function addToCartFromCard(button) {
+			const card = button.closest('.product-card');
+			addToCart({
+				id: card.dataset.productId,
+				productName: card.dataset.productName,
+				productPrice: parseFloat(card.dataset.productPrice),
+				productImage: card.dataset.productImage,
+				quantity: 1,
+				totalPrice: parseFloat(card.dataset.productPrice).toFixed(2),
+				toppings: 'None',
+				milk: 'None'
+			});
+		}
+
+		// --- Modal Logic ---
+		const modal = document.getElementById('productModal');
+		const modalClose = document.getElementById('modalClose');
+		const qtyInput = document.getElementById('qtyInput');
+		const qtyPlus = document.getElementById('qtyPlus');
+		const qtyMinus = document.getElementById('qtyMinus');
+		const orderPrice = document.getElementById('orderPrice');
+		const addToOrderBtn = document.getElementById('addToOrderBtn');
+
+		let basePrice = 8.75;
+		let currentProductImage = '';
+
+		function openProductModal(productData) {
+			if (productData) {
+				document.getElementById('productName').textContent = productData.name;
+				document.getElementById('productPrice').textContent = productData.price;
+				document.getElementById('productDesc').textContent = productData.description;
+				document.getElementById('productAllergens').textContent = productData.allergens;
+				basePrice = parseFloat(productData.priceValue);
+				// Use provided image or fallback to the default (Pistachio Shake) if not provided
+				currentProductImage = productData.image || 'homepage/image/Page 2/drink sku without straws .jpeg';
+				qtyInput.value = 1;
+				updatePrice();
+
+				// Update options based on product type
+				const optionTitles = document.querySelectorAll('.option-title');
+				const optionLists = document.querySelectorAll('.option-list');
+
+				if (productData.name === 'Sunny Detox') {
+					optionTitles[0].innerHTML = 'Ice Level<span class="option-tag">Optional</span>';
+					const toppingLabels = optionLists[0].querySelectorAll('label');
+					toppingLabels[0].textContent = 'None (default this)';
+					toppingLabels[1].textContent = 'Light';
+					toppingLabels[2].textContent = 'Extra';
+					const toppingInputs = optionLists[0].querySelectorAll('input');
+					toppingInputs[0].value = 'None';
+					toppingInputs[1].value = 'Light';
+					toppingInputs[2].value = 'Extra';
+
+					optionTitles[1].innerHTML = 'Sweetness<span class="option-tag">Optional</span>';
+					const milkLabels = optionLists[1].querySelectorAll('label');
+					milkLabels[0].textContent = 'No Sugar (default this)';
+					milkLabels[1].textContent = 'Light Sugar';
+					milkLabels[2].textContent = 'Normal Sugar';
+					const milkInputs = optionLists[1].querySelectorAll('input');
+					milkInputs[0].value = 'No Sugar';
+					milkInputs[1].value = 'Light Sugar';
+					milkInputs[2].value = 'Normal Sugar';
+					toppingInputs[0].checked = true;
+					milkInputs[0].checked = true;
+				} else if (productData.name === 'Signature Almond Latte') {
+					optionTitles[0].innerHTML = 'Shot Size<span class="option-tag">Optional</span>';
+					const toppingLabels = optionLists[0].querySelectorAll('label');
+					toppingLabels[0].textContent = 'Single (default this)';
+					toppingLabels[1].textContent = 'Double';
+					toppingLabels[2].textContent = 'Triple';
+					const toppingInputs = optionLists[0].querySelectorAll('input');
+					toppingInputs[0].value = 'Single';
+					toppingInputs[1].value = 'Double';
+					toppingInputs[2].value = 'Triple';
+
+					optionTitles[1].innerHTML = 'Temperature<span class="option-tag">Optional</span>';
+					const milkLabels = optionLists[1].querySelectorAll('label');
+					milkLabels[0].textContent = 'Hot (default this)';
+					milkLabels[1].textContent = 'Warm';
+					milkLabels[2].textContent = 'Iced';
+					const milkInputs = optionLists[1].querySelectorAll('input');
+					milkInputs[0].value = 'Hot';
+					milkInputs[1].value = 'Warm';
+					milkInputs[2].value = 'Iced';
+					toppingInputs[0].checked = true;
+					milkInputs[0].checked = true;
+				} else {
+					// Reset to default Pistachio Protein Shake options
+					optionTitles[0].innerHTML = 'Toppings<span class="option-tag">Optional</span>';
+					const toppingLabels = optionLists[0].querySelectorAll('label');
+					toppingLabels[0].textContent = 'Pistachio (default this)';
+					toppingLabels[1].textContent = 'Almond';
+					toppingLabels[2].textContent = 'None';
+					const toppingInputs = optionLists[0].querySelectorAll('input');
+					toppingInputs[0].value = 'Pistachio';
+					toppingInputs[1].value = 'Almond';
+					toppingInputs[2].value = 'None';
+
+					optionTitles[1].innerHTML = 'Alternative Milk<span class="option-tag">Optional</span>';
+					const milkLabels = optionLists[1].querySelectorAll('label');
+					milkLabels[0].textContent = 'Fresh Milk (default this)';
+					milkLabels[1].textContent = 'Almond Milk';
+					milkLabels[2].textContent = 'Oat Milk';
+					const milkInputs = optionLists[1].querySelectorAll('input');
+					milkInputs[0].value = 'Fresh Milk';
+					milkInputs[1].value = 'Almond Milk';
+					milkInputs[2].value = 'Oat Milk';
+					toppingInputs[0].checked = true;
+					milkInputs[0].checked = true;
+				}
+			}
+			modal.classList.add('active');
+		}
+
+		function closeModal() {
+			modal.classList.remove('active');
+		}
+
+		modalClose.addEventListener('click', closeModal);
+
+		qtyPlus.addEventListener('click', () => {
+			qtyInput.value = parseInt(qtyInput.value) + 1;
+			updatePrice();
+		});
+
+		qtyMinus.addEventListener('click', () => {
+			if (parseInt(qtyInput.value) > 1) {
+				qtyInput.value = parseInt(qtyInput.value) - 1;
+				updatePrice();
+			}
+		});
+
+		qtyInput.addEventListener('change', () => {
+			if (qtyInput.value < 1) qtyInput.value = 1;
+			updatePrice();
+		});
+
+		function updatePrice() {
+			const total = (basePrice * parseInt(qtyInput.value)).toFixed(2);
+			if (qtyInput.value > 1) {
+				orderPrice.textContent = `HKD ${total}`;
+				addToOrderBtn.innerHTML = `Add to order <span id="orderPrice">HKD ${total}</span>`;
+			} else {
+				orderPrice.textContent = `HKD ${total}`;
+				addToOrderBtn.innerHTML = `Add to order <span id="orderPrice">HKD ${total}</span>`;
+			}
+		}
+
+		addToOrderBtn.addEventListener('click', () => {
+			const selections = {
+				productName: document.getElementById('productName').textContent,
+				productPrice: basePrice,
+				quantity: parseInt(qtyInput.value),
+				totalPrice: (basePrice * parseInt(qtyInput.value)).toFixed(2),
+				toppings: document.querySelector('input[name="toppings"]:checked').value,
+				milk: document.querySelector('input[name="milk"]:checked').value,
+				productImage: currentProductImage
+			};
+
+			addToCart(selections);
+			closeModal();
+		});
+
+		// Expose for global use if needed
+		window.openProductModal = openProductModal;
+
+		// Sync cart badge and list on load (e.g. when coming from homepage)
+		updateCartUI();
+
+		// --- Scroll to Contact Function ---
+		function scrollToContact(event) {
+			event.preventDefault();
+			const contactElement = document.getElementById('contact');
+			if (contactElement) {
+				contactElement.scrollIntoView({ behavior: 'smooth' });
+			}
+		}
+
+		// Expose for global use
+		window.scrollToContact = scrollToContact;
+
+		// --- Navbar Scroll Effect ---
+		function initNavbar() {
+			const navbar = document.getElementById('navbar');
+
+			function updateNavbar() {
+				if (window.scrollY > 50) {
+					navbar.classList.add('scrolled');
+				} else {
+					navbar.classList.remove('scrolled');
+				}
+			}
+
+			window.addEventListener('scroll', updateNavbar);
+			updateNavbar();
+		}
+
+		// Initialize navbar on page load
+		document.addEventListener('DOMContentLoaded', initNavbar);
+	</script>
+</body>
+
+</html>
