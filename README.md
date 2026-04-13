@@ -1,81 +1,83 @@
-# Pro-Fit Bakehouse
+﻿# COMP7780 Assignment 2 - Green World E-shop
 
-A responsive, static website for **Pro-Fit Bakehouse** — an artisan bakery brand focused on high-protein, low-sugar bread and pastries.
+This repository follows the assignment todo and requirement documents with cycle-based delivery files and a Node.js + MySQL checkout flow.
 
-**Slogan:** *High Protein. Low Sugar. Real Bread.*
+## Implemented
 
----
+- `R2` / `R3`: required pages are available:
+  - `comp7780_home.html`
+  - `comp7780_product.html`
+- `R5`: users can place orders from product page cart.
+- `R6`: footer student information uses `table border="2"` on both pages.
+- `ITR1`: Node.js server implementations are included:
+  - Cycle 1 HTTP server: `http_server_input_file.js`
+  - Cycle 2/3 Express server: `index.js`
+- `ITR2`: MySQL persistence is implemented:
+  - DB connection test: `connect.js`
+  - SQL init script: `sql/create_tables.sql`
+- `R4`: PayPal button integrated into `/check_out` (sandbox via `PAYPAL_CLIENT_ID`).
 
-## Live Demo
+## Structure
 
-- **Homepage:** [https://qtimm.github.io/7780_ass1/](https://qtimm.github.io/7780_ass1/) (redirects to homepage)
-- **Direct homepage:** [https://qtimm.github.io/7780_ass1/homepage/index.html](https://qtimm.github.io/7780_ass1/homepage/index.html)
-- **Full menu / product page:** [https://qtimm.github.io/7780_ass1/comp7780_product.html](https://qtimm.github.io/7780_ass1/comp7780_product.html)
+- `comp7780_home.html`
+- `comp7780_product.html`
+- `http_server_input_file.js`
+- `index.js`
+- `connect.js`
+- `sql/create_tables.sql`
+- `cycle1/` `cycle2/` `cycle3/`
 
----
+## Setup
 
-## Features
+1. Install dependencies:
 
-- **Homepage**
-  - Hero carousel with brand imagery
-  - About section, contact section, menu highlights
-  - “TO OUR MENU” button linking to the full product page
-  - Navigation: Home, About, Contact
-
-- **Product / Menu page**
-  - Full menu listing (e.g. Artisan Protein Bread, Pistachio Protein Shake, Portuguese Egg Tarts)
-  - Add to cart with optional drink customizations (toppings, milk) via modal
-  - Cart persisted across pages using `localStorage`
-
-- **Shopping cart**
-  - Badge on nav icon showing **total item quantity**
-  - Slide-out cart panel with list of items
-  - Per-item **+ / −** quantity controls; minus at quantity 1 removes the item
-  - Cart contents kept when switching between homepage and menu page
-
-- **Technical**
-  - Static HTML/CSS/JS, no build step
-  - Responsive layout, mobile-friendly nav
-  - Root `index.html` redirects to homepage so the repo root URL does not 404
-
----
-
-## Project structure
-
-```
-7780_ass1/
-├── index.html              # Root redirect → homepage/index.html
-├── comp7780_product.html   # Full menu & cart page
-├── homepage/
-│   ├── index.html          # Homepage
-│   ├── index.css           # Styles
-│   ├── script.js           # Carousel, nav, cart (homepage)
-│   └── image/              # Page 1 & Page 2 assets
-└── README.md
+```bash
+npm install
 ```
 
----
+2. Initialize MySQL:
 
-## Run locally
+```sql
+source sql/create_tables.sql;
+```
 
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/QtImM/7780_ass1.git
-   cd 7780_ass1
-   ```
+3. Optional env vars:
 
-2. Serve the folder with any static server (e.g. Python):
-   ```bash
-   python -m http.server 5500
-   ```
+```bash
+DB_HOST=localhost
+DB_USER=user99
+DB_PASSWORD=user99
+DB_NAME=comp7780
+PAYPAL_CLIENT_ID=sb
+```
 
-3. Open in browser:
-   - Homepage: [http://localhost:5500/homepage/index.html](http://localhost:5500/homepage/index.html)
-   - Menu: [http://localhost:5500/comp7780_product.html](http://localhost:5500/comp7780_product.html)
-   - Root (redirect): [http://localhost:5500/](http://localhost:5500/)
+4. Test DB connection:
 
----
+```bash
+node connect.js
+```
 
-## License
+5. Start Express server:
 
-For course / assignment use (COMP7780). All rights reserved.
+```bash
+npm start
+```
+
+6. Open:
+
+- `http://localhost:3000/comp7780_home.html`
+- `http://localhost:3000/comp7780_product.html`
+
+## Cycle commands
+
+- Cycle 1:
+
+```bash
+npm run start:cycle1
+```
+
+- Cycle 2/3:
+
+```bash
+npm start
+```

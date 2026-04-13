@@ -1,0 +1,16 @@
+﻿{
+  "name": "comp7780-green-world-eshop",
+  "version": "1.0.0",
+  "description": "COMP7780 Assignment 2 - Green World E-shop",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "start:cycle1": "node http_server_input_file.js",
+    "db:test": "node connect.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "mime-types": "^2.1.35",
+    "mysql2": "^3.14.1"
+  }
+}
