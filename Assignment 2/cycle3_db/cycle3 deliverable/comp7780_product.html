@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+
+<!--    COMP 7780
+	Author: Hans Yip
+	Date:  09/01/2022
+-->
+<title>Assignment2-cycle3 product</title>
+
+<style type="text/css">
+	.center { display: block; margin-left: auto; margin-right: auto; }		
+</style>
+
+<script language="JavaScript" type="text/javascript">
+	function process(fm) {
+		alert("Username length: " + document.querySelector("#username").value.length);
+		alert("Qty: " + fm.qty.value);
+
+		if (document.querySelector("#username").value.length < 1) {
+			alert("Please enter UserName");
+			document.querySelector("#username").focus();
+			return false;
+		} else {
+			fm.f_username.value = document.querySelector("#username").value;
+		}
+	
+		if (fm.qty.value < 1) {
+			alert("QTY not selected, please select QTY");
+			fm.qty.focus();
+			return false;
+		}
+		var url = "http://localhost:3000/cart?prod_id=" + fm.prod_id.value + "&qty=" + fm.qty.value + "&price=" + fm.price.value + "&f_username=" + fm.f_username.value; 
+		alert("url: " + url);
+/*
+		alert("Return false, not actually making a call");
+		return false;
+*/
+
+		alert("return true: actually call program");
+		return true;
+
+	}
+
+	function process_check_out(fm) {
+		alert("Username length: " + document.querySelector("#username").value.length);
+		if (document.querySelector("#username").value.length < 1) {
+			alert("Please enter UserName");
+			document.querySelector("#username").focus();
+			return false;
+		} else {
+			fm.f_check_out_username.value = document.querySelector("#username").value;
+		}
+		var url = "http://localhost:3000/check_out?f_check_out_username=" + fm.f_check_out_username.value; 
+		alert("url: " + url);
+/*	
+		alert("Return false, not actually making a call");
+		return false;
+*/
+		alert("return true: actually call program");
+		return true;
+	
+	}
+
+</script>
+
+</head>
+
+<body>
+<header>
+	<img src="logo.png" class="center" width="300" height="100">
+	<h1 style="background-color:#0052cc; color:#ffffff; text-align:center">COMP 7780 Special Topics in Knowledge and Information Management <br>
+	Team no. 00, Team Name: HKBU team</h1>
+	<img src="cs_logo.png" width="300" height="200" class="center">
+</header>
+
+<section>
+
+	<article>
+		<h3>GreenWorld! Online Shop</h3>
+		<p>Our goal is to promote "Green Environment" by re-cycling the items that you no longer need or use and sell them to the public
+			for a discounted price.</p>
+		<p> All sales Final - No refund or exchange. </p>
+		<p> Once we received your payment, we will contact you for delivery.</p>
+	</article>
+
+	<h1>Products for sale!</h1>
+
+	<p>Customer User Name: 
+		<select name="username" id="username">
+			<option>cust1</option>
+			<option>cust2</option>
+			<option>cust3</option>
+		</select>
+	</p>
+
+	<table border="2">
+	<tr><th>Product</th><th>Quantity</th><th>Unit Price</th><th>Add to cart</th></tr>
+
+	<form name="f1" id="f1" method="get" target="_blank" action="http://localhost:3000/cart" onsubmit="return process(this)">
+	<tr><td>Product 1<input type="hidden" name="prod_id" id="prod_id" value="1"></td>
+	<td><select name="qty" id="qty">
+		<option>0</option>
+		<option>1</option>
+		<option>2</option>
+	    </select>
+	</td>
+	<td>$2.98<input type="hidden" name="price" id="price" value="2.98"></td>
+	<td><input type="hidden" name="f_username" id="f_username" value="">
+	<input type="submit" value="Add to shopping cart"></td>
+	</tr>
+	</form>
+
+	<form name="f2" id="f2" method="get" target="_blank" action="http://localhost:3000/cart" onsubmit="return process(this)">
+	<tr><td>Product 2<input type="hidden" name="prod_id" id="prod_id" value="2"></td>
+	<td><select name="qty" id="qty">
+		<option>0</option>
+		<option>1</option>
+		<option>2</option>
+	    </select>
+	</td>
+	<td>$4.50<input type="hidden" name="price" id="price" value="4.50"></td>
+	<td><input type="hidden" name="f_username" id="f_username" value="">
+	<input type="submit" value="Add to shopping cart"></td>
+	</tr>
+	</form>
+
+	<form name="f3" id="f3" method="get" target="_blank" action="http://localhost:3000/cart" onsubmit="return process(this)">
+	<tr><td>Product 3<input type="hidden" name="prod_id" id="prod_id" value="3"></td>
+	<td><select name="qty" id="qty">
+		<option>0</option>
+		<option>1</option>
+		<option>2</option>
+	    </select>
+	</td>
+	<td>$9.98<input type="hidden" name="price" id="price" value="9.98"></td>
+	<td><input type="hidden" name="f_username" id="f_username" value="">
+	<input type="submit" value="Add to shopping cart"></td>
+	</tr>
+	</form>
+
+	</table>
+
+	<br /><br />
+	<form name="f_checkout" id="f_checkout" method="get" action="http://localhost:3000/check_out" onsubmit="return process_check_out(this)">
+	<input type="hidden" name="f_check_out_username" id="f_check_out_username" value="">
+	<input type="submit" value = "Check out - Use Paypal">	
+	</form>
+	
+	<!-- text message returned from paypal -->
+	<h1 id="txt1"></h1>	
+
+</section>
+
+<footer>
+	<p><img src="enews1.jpg" alt="hkbu Logo"> Contact me: hansyip@comp.hkbu.edu.hk</p>
+</footer>
+
+</body>
+</html>
