@@ -16,20 +16,20 @@
 - [x] 统一页面命名到作业要求：
   - `comp7780_home.html`
   - `comp7780_product.html`
-- [ ] 在两个页面补齐“heading / company info / footing”显式区块（R2、R3）
+- [x] 在两个页面补齐“heading / company info / footing”显式区块（R2、R3）
 - [x] 页脚改为学生信息表格，设置 `border="2"`（R6）
 
 ## P1（Cycle 1: HTTP Server）
 - [x] 新建 `http_server_input_file.js`（或等效）启动 Node.js HTTP 服务
 - [x] 正确返回 `comp7780_home.html` 与 `comp7780_product.html`
 - [x] 静态资源 MIME 正常（图片/CSS/JS）
-- [ ] 本地验收：`http://localhost/comp7780_home.html` 可访问
+- [x] 本地验收：`http://localhost/comp7780_home.html` 可访问
 
 ## P1（Cycle 2: Express）
 - [x] 初始化 Node 项目并安装 Express
 - [x] 新建 `index.js`，用 Express 提供路由与静态目录（`public`）
 - [x] 校正首页到产品页链接（走 Express 端口）
-- [ ] 验收：`http://localhost:3000/` 打开主页，产品页可访问
+- [x] 验收：`http://localhost:3000/` 打开主页，产品页可访问
 
 ## P1（Cycle 3: MySQL + Order）
 - [x] 安装 `mysql2` 依赖
@@ -43,24 +43,25 @@
 - [x] 在 checkout 页面接入 PayPal SDK（sandbox）
 - [x] 按购物车总价创建订单并完成支付回调
 - [x] 支付成功后展示成功信息（满足 R4）
-- [ ] 准备测试账号与演示步骤（防止课堂演示失败）
+- [x] 准备测试账号与演示步骤（防止课堂演示失败）
 
 ## P2（质量与提交）
-- [ ] 补一份 `README`（运行步骤、依赖、端口、数据库初始化）
-- [ ] 准备最小测试清单：
-  - [ ] 下单写库成功
-  - [ ] checkout 金额正确
-  - [ ] PayPal 支付回调成功
-  - [ ] R6 表格页脚在两页都生效
-- [ ] 打包提交材料（代码 + SQL + 截图/说明）
+- [x] 补一份 `README`（运行步骤、依赖、端口、数据库初始化）
+- [x] 准备最小测试清单：
+  - [x] 下单写库成功
+  - [x] checkout 金额正确
+  - [x] PayPal 支付回调成功
+  - [x] R6 表格页脚在两页都生效
+- [x] 打包提交材料（代码 + SQL + 截图/说明）
 
 ## 验收 Checklist（最终打勾）
-- [ ] R1 网站可展示并支持线上销售流程
-- [ ] R2 `comp7780_home.html` 结构符合要求
-- [ ] R3 `comp7780_product.html` 结构符合要求
+- [x] R1 网站可展示并支持线上销售流程
+- [x] R2 `comp7780_home.html` 结构符合要求
+- [x] R3 `comp7780_product.html` 结构符合要求
 - [x] R4 PayPal 支付可用
-- [ ] R5 用户可下单
+- [x] R5 用户可下单
 - [x] R6 学生信息表格 + `border=2`
 - [x] ITR1 Node.js Web Server 已部署运行
 - [x] ITR2 MySQL 交易数据可存取
+
 
