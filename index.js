@@ -36,7 +36,7 @@ function renderCheckoutPage(username, tableRows, htmlRows, totalDue) {
         <p class="checkout-card-copy">Review today's order before completing secure payment. Your selected items are listed below exactly as saved from the menu.</p>
       </div>
       <div class="checkout-table-wrap">
-        <table border="2" class="student-info-table checkout-table">
+        <table border="2" class="checkout-table">
           <tr>
             <th>Order Date</th>
             <th>Product</th>
@@ -171,7 +171,31 @@ function renderCheckoutPage(username, tableRows, htmlRows, totalDue) {
     }
     .checkout-table {
       min-width: 720px;
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(248, 239, 227, 0.95);
       color: #8b5a2b;
+      border-color: rgba(184, 132, 26, 0.38);
+      overflow: hidden;
+    }
+    .checkout-table th,
+    .checkout-table td {
+      padding: 16px 18px;
+      border: 1px solid rgba(184, 132, 26, 0.18);
+      text-align: left;
+      font-size: 1rem;
+    }
+    .checkout-table th {
+      background: rgba(232, 163, 23, 0.14);
+      color: #8b5a2b;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+    .checkout-table td {
+      color: #6d5542;
+    }
+    .checkout-table tr:nth-child(even) td {
+      background: rgba(255, 255, 255, 0.24);
     }
     .checkout-summary-row {
       display: flex;
