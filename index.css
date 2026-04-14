@@ -1443,6 +1443,40 @@ h3 {
     letter-spacing: 1px;
 }
 
+.student-info-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(245, 230, 211, 0.96);
+    color: #b8841a;
+    border-color: rgba(232, 163, 23, 0.55);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.student-info-table th,
+.student-info-table td {
+    padding: 10px 12px;
+    border: 1px solid rgba(139, 90, 43, 0.18);
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+.student-info-table th {
+    background: rgba(232, 163, 23, 0.16);
+    color: #8b5a2b;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+
+.student-info-table td {
+    color: #c99622;
+}
+
+.student-info-table tr:nth-child(even) td {
+    background: rgba(255, 255, 255, 0.18);
+}
+
 .team-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
