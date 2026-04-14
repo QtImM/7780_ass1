@@ -107,7 +107,7 @@ app.get('/check_out', async (req, res) => {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Checkout - Green World E-shop</title>
+  <title>Checkout - Pro-Fit Bakehouse</title>
   <style>
     body { font-family: Arial, sans-serif; margin: 24px; color: #333; }
     table { border-collapse: collapse; width: 100%; max-width: 900px; }

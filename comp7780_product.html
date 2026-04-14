@@ -67,6 +67,26 @@
 			padding-left: calc((100% - 1200px) / 2);
 		}
 
+		/* Product page company info should not inherit homepage 800px desktop block height */
+		#company-information {
+			background: var(--color-cream-light);
+			padding-bottom: 0;
+		}
+
+		#company-information .about-container {
+			display: block;
+			height: auto;
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+
+		#company-information .about-content {
+			background: transparent;
+			border-radius: 0;
+			justify-content: flex-start;
+			padding: 2.75rem 0 1rem;
+		}
+
 		/* Ensure modal styles work */
 		.modal-overlay {
 			position: fixed;
@@ -561,18 +581,18 @@
 </header>
 
 	<!-- Company Information (R3) -->
-	<section id="company-information" class="about" style="padding-top: 140px;">
+	<section id="company-information" class="about" style="padding-top: 220px;">
 		<div class="about-container">
 			<div class="about-content reveal" style="max-width: 100%;">
 				<span class="section-tag">COMPANY INFORMATION</span>
-				<h2 class="about-title">Green World / Pro-Fit Bakehouse Product Page</h2>
-				<p class="about-text-intro">This page provides detailed product information, cart-based ordering, and checkout payment flow for online sales.</p>
+				<h2 class="about-title">Pro-Fit Bakehouse Menu</h2>
+				<p class="about-text-intro">Discover our bakery selection of freshly baked pastries, protein-forward breads, and handcrafted drinks, created for easy ordering and everyday moments that feel a little more special.</p>
 			</div>
 		</div>
 	</section>
 
 	<!-- Products Section: Pastries and Drinks Categories -->
-	<section class="products" id="products" style="padding-top: 200px; scroll-margin-top: 200px;">
+	<section class="products" id="products" style="padding-top: 24px; scroll-margin-top: 140px;">
 		<!-- Pastries 鏉垮潡 -->
 		<div class="products-category">
 			<h3>Pastries</h3>
