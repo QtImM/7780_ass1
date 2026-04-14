@@ -909,7 +909,7 @@
 				<div class="quantity-section">
 					<span class="quantity-label">Quantity:</span>
 					<div class="quantity-controls">
-						<button class="quantity-btn" id="qtyMinus">鈭?/button>
+						<button class="quantity-btn" id="qtyMinus">-</button>
 						<input type="number" class="quantity-input" id="qtyInput" value="1" min="1">
 						<button class="quantity-btn" id="qtyPlus">+</button>
 					</div>
@@ -973,10 +973,10 @@
 							<img src="${item.productImage}" alt="${item.productName}" class="cart-item-image">
 							<div class="cart-item-info">
 								<div class="cart-item-name">${item.productName}</div>
-								${opts.length ? '<div class="cart-item-options" style="font-size:0.85rem;color:#666;margin-bottom:6px;">' + opts.join(' 路 ') + '</div>' : ''}
+								${opts.length ? '<div class="cart-item-options" style="font-size:0.85rem;color:#666;margin-bottom:6px;">' + opts.join(' / ') + '</div>' : ''}
 								<div class="cart-item-controls">
 									<div class="cart-item-quantity">
-										<button type="button" class="quantity-btn" onclick="decreaseQty(${index})" aria-label="Decrease">鈭?/button>
+										<button type="button" class="quantity-btn" onclick="decreaseQty(${index})" aria-label="Decrease">-</button>
 										<span class="quantity-value">${item.quantity}</span>
 										<button type="button" class="quantity-btn" onclick="increaseQty(${index})" aria-label="Increase">+</button>
 									</div>
