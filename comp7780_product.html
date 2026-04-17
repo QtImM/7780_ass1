@@ -973,7 +973,7 @@
 		<div class="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkoutModalTitle">
 			<span class="checkout-modal-kicker">Checkout</span>
 			<h2 class="checkout-modal-title" id="checkoutModalTitle">Enter your username</h2>
-			<p class="checkout-modal-copy">We will save this order under your checkout name before taking you to the payment page.</p>
+			<p class="checkout-modal-copy">We will use your current shopping cart for this checkout only, then take you to the payment page.</p>
 			<div class="checkout-modal-field">
 				<label class="checkout-modal-label" for="checkoutUsername">Username</label>
 				<input class="checkout-modal-input" id="checkoutUsername" type="text" name="checkout-username" placeholder="e.g. tim123" autocomplete="username">
@@ -1412,31 +1412,17 @@
 		// Sync cart badge and list on load (e.g. when coming from homepage)
 		updateCartUI();
 
-		async function submitCartAndCheckout(username) {
+		function submitCartAndCheckout(username) {
 			if (!cart.length) {
 				showNotification('Your cart is empty', 'error');
 				return;
 			}
 
-			try {
-				for (const item of cart) {
-					const params = new URLSearchParams({
-						f_username: username,
-						product_name: item.productName,
-						qty: String(item.quantity || 1),
-						price: String(item.productPrice || 0)
-					});
-					const response = await fetch(`/cart?${params.toString()}`);
-					if (!response.ok) {
-						throw new Error('Failed to save cart item');
-					}
-				}
-
-				window.location.href = `/check_out?f_check_out_username=${encodeURIComponent(username)}`;
-			} catch (error) {
-				showNotification('Checkout failed. Please try again.', 'error');
-				console.error(error);
-			}
+			const params = new URLSearchParams({
+				f_check_out_username: username,
+				cart: JSON.stringify(cart)
+			});
+			window.location.href = `/check_out?${params.toString()}`;
 		}
 
 		function handleCheckoutConfirm() {

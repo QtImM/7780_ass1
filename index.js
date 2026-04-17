@@ -1,6 +1,10 @@
-﻿const express = require('express');
+const express = require('express');
 const path = require('path');
 const mysql = require('mysql2/promise');
+const {
+  parseCheckoutCart,
+  buildCheckoutTableRows
+} = require('./checkout-service');
 
 const app = express();
 const PORT = Number(process.env.PORT || 3000);
@@ -28,6 +32,7 @@ function escapeHtml(value) {
 }
 
 function renderCheckoutPage(username, tableRows, htmlRows, totalDue) {
+  const cartStorageKeyJson = JSON.stringify('profit_cart');
   const summarySection = tableRows.length ? `
     <div class="checkout-card">
       <div class="checkout-card-header">
@@ -386,9 +391,15 @@ function renderCheckoutPage(username, tableRows, htmlRows, totalDue) {
         },
         onApprove: function (_data, actions) {
           return actions.order.capture().then(function (details) {
+            try {
+              localStorage.removeItem(${cartStorageKeyJson});
+            } catch (_error) {
+              // Ignore storage errors and still show payment success.
+            }
+
             var message = 'Payment completed by ' + details.payer.name.given_name + '.';
             var el = document.getElementById('payment-status');
-            el.textContent = message;
+            el.textContent = message + ' Your shopping cart is now cleared.';
             el.style.color = '#8b5a2b';
           });
         }
@@ -424,8 +435,8 @@ app.get('/cart', async (req, res) => {
 
   try {
     await dbPool.execute(
-      `INSERT INTO cart (cust_username, cart_order_date, product_name, cart_qty, cart_price)
-       VALUES (?, CURDATE(), ?, ?, ?)`,
+      `INSERT INTO cart (cust_username, cart_order_date, product_name, cart_qty, cart_price, status)
+       VALUES (?, CURDATE(), ?, ?, ?, 'cart')`,
       [username, productName, qty, price]
     );
     res.json({ ok: true });
@@ -437,31 +448,15 @@ app.get('/cart', async (req, res) => {
 
 app.get('/check_out', async (req, res) => {
   const username = (req.query.f_check_out_username || '').trim();
+  const cartItems = parseCheckoutCart(req.query.cart);
   if (!username) {
     res.status(400).send('Missing f_check_out_username');
     return;
   }
 
   try {
-    const [rows] = await dbPool.execute(
-      `SELECT DATE_FORMAT(cart_order_date, '%Y-%m-%d') AS order_date,
-              product_name,
-              cart_qty,
-              cart_price
-       FROM cart
-       WHERE cust_username = ?
-       ORDER BY cart_order_date ASC, id ASC`,
-      [username]
-    );
-
-    const tableRows = rows.map((row) => {
-      const amount = Number(row.cart_qty) * Number(row.cart_price);
-      return {
-        ...row,
-        amount
-      };
-    });
-
+    const orderDate = new Date().toISOString().slice(0, 10);
+    const tableRows = buildCheckoutTableRows(cartItems, orderDate);
     const totalDue = tableRows.reduce((sum, row) => sum + row.amount, 0);
 
     const htmlRows = tableRows.map((row) => `
@@ -476,8 +471,8 @@ app.get('/check_out', async (req, res) => {
 
     res.send(renderCheckoutPage(username, tableRows, htmlRows, totalDue));
   } catch (error) {
-    console.error('Checkout query failed:', error.message);
-    res.status(500).send('Database query failed during checkout.');
+    console.error('Checkout render failed:', error.message);
+    res.status(500).send('Checkout page render failed.');
   }
 });
 
