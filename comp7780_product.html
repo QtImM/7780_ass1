@@ -40,6 +40,10 @@
 			stroke: rgb(74, 74, 74);
 		}
 
+		.nav-icons {
+			gap: 1rem;
+		}
+
 		/* Products Category Styles */
 		.products-category {
 			margin-bottom: 3rem;
@@ -295,6 +299,116 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
+		}
+
+		.checkout-modal-overlay {
+			position: fixed;
+			inset: 0;
+			display: none;
+			align-items: center;
+			justify-content: center;
+			padding: 1.5rem;
+			background: rgba(44, 44, 44, 0.45);
+			backdrop-filter: blur(6px);
+			z-index: 2300;
+		}
+
+		.checkout-modal-overlay.active {
+			display: flex;
+		}
+
+		.checkout-modal {
+			width: min(100%, 460px);
+			background: linear-gradient(180deg, rgba(255, 252, 247, 0.98) 0%, rgba(245, 230, 211, 0.96) 100%);
+			border: 1px solid rgba(232, 163, 23, 0.22);
+			border-radius: 28px;
+			box-shadow: 0 24px 60px rgba(139, 90, 43, 0.22);
+			padding: 2rem;
+			animation: slideUp 0.25s ease-out;
+		}
+
+		.checkout-modal-kicker {
+			display: inline-flex;
+			align-items: center;
+			padding: 0.35rem 0.8rem;
+			border-radius: 999px;
+			background: rgba(232, 163, 23, 0.14);
+			color: #b8841a;
+			font-size: 0.78rem;
+			font-weight: 700;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			margin-bottom: 0.85rem;
+		}
+
+		.checkout-modal-title {
+			color: #5a4334;
+			font-size: 2rem;
+			margin-bottom: 0.65rem;
+		}
+
+		.checkout-modal-copy {
+			color: #6d6258;
+			font-size: 1rem;
+			line-height: 1.7;
+			margin-bottom: 1.4rem;
+		}
+
+		.checkout-modal-field {
+			display: flex;
+			flex-direction: column;
+			gap: 0.55rem;
+		}
+
+		.checkout-modal-label {
+			color: #8b5a2b;
+			font-size: 0.88rem;
+			font-weight: 700;
+			letter-spacing: 0.06em;
+			text-transform: uppercase;
+		}
+
+		.checkout-modal-input {
+			width: 100%;
+			border: 1px solid rgba(139, 90, 43, 0.2);
+			border-radius: 16px;
+			padding: 0.95rem 1rem;
+			font-size: 1rem;
+			color: #4a4a4a;
+			background: rgba(255, 255, 255, 0.95);
+			outline: none;
+			transition: border-color 0.2s ease, box-shadow 0.2s ease;
+		}
+
+		.checkout-modal-input:focus {
+			border-color: rgba(232, 163, 23, 0.9);
+			box-shadow: 0 0 0 4px rgba(232, 163, 23, 0.14);
+		}
+
+		.checkout-modal-error {
+			min-height: 1.2rem;
+			margin-top: 0.65rem;
+			color: #c5543f;
+			font-size: 0.92rem;
+			font-weight: 600;
+		}
+
+		.checkout-modal-actions {
+			display: flex;
+			justify-content: flex-end;
+			gap: 0.85rem;
+			margin-top: 1.5rem;
+		}
+
+		.checkout-modal-cancel {
+			background: rgba(255, 255, 255, 0.85);
+			color: #8b5a2b;
+			border: 1px solid rgba(139, 90, 43, 0.18);
+			box-shadow: none;
+		}
+
+		.checkout-modal-cancel:hover {
+			background: rgba(245, 230, 211, 0.95);
 		}
 
 		.btn-add-order {
@@ -554,12 +668,6 @@
 				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 					<circle cx="11" cy="11" r="8"></circle>
 					<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-				</svg>
-			</button>
-			<button class="nav-icon-btn" id="profileToggle" aria-label="Profile">
-				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-					<circle cx="12" cy="7" r="4"></circle>
 				</svg>
 			</button>
 			<button class="nav-icon-btn nav-cart-btn" id="cartToggle" aria-label="Shopping Cart">
@@ -861,6 +969,23 @@
 	</div>
 	<div class="cart-overlay" id="cartOverlay"></div>
 
+	<div class="checkout-modal-overlay" id="checkoutModal" aria-hidden="true">
+		<div class="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkoutModalTitle">
+			<span class="checkout-modal-kicker">Checkout</span>
+			<h2 class="checkout-modal-title" id="checkoutModalTitle">Enter your username</h2>
+			<p class="checkout-modal-copy">We will save this order under your checkout name before taking you to the payment page.</p>
+			<div class="checkout-modal-field">
+				<label class="checkout-modal-label" for="checkoutUsername">Username</label>
+				<input class="checkout-modal-input" id="checkoutUsername" type="text" name="checkout-username" placeholder="e.g. tim123" autocomplete="username">
+			</div>
+			<p class="checkout-modal-error" id="checkoutModalError" aria-live="polite"></p>
+			<div class="checkout-modal-actions">
+				<button class="btn checkout-modal-cancel" type="button" id="checkoutCancel">Cancel</button>
+				<button class="btn btn-primary" type="button" id="checkoutConfirm">Continue to checkout</button>
+			</div>
+		</div>
+	</div>
+
 	<!-- Product Modal Overlay -->
 	<div class="modal-overlay" id="productModal">
 		<div class="modal-content">
@@ -954,6 +1079,11 @@
 		const cartClose = document.getElementById('cartClose');
 		const cartCount = document.getElementById('cartCount');
 		const cartItemsContainer = document.getElementById('cartItems');
+		const checkoutModal = document.getElementById('checkoutModal');
+		const checkoutUsernameInput = document.getElementById('checkoutUsername');
+		const checkoutModalError = document.getElementById('checkoutModalError');
+		const checkoutCancel = document.getElementById('checkoutCancel');
+		const checkoutConfirm = document.getElementById('checkoutConfirm');
 
 		function addToCart(product) {
 			const existingProduct = cart.find(item =>
@@ -1039,6 +1169,20 @@
 		function closeCart() {
 			cartWidget.classList.remove('open');
 			cartOverlay.classList.remove('open');
+		}
+
+		function openCheckoutModal() {
+			checkoutModal.classList.add('active');
+			checkoutModal.setAttribute('aria-hidden', 'false');
+			checkoutModalError.textContent = '';
+			checkoutUsernameInput.value = '';
+			setTimeout(() => checkoutUsernameInput.focus(), 0);
+		}
+
+		function closeCheckoutModal() {
+			checkoutModal.classList.remove('active');
+			checkoutModal.setAttribute('aria-hidden', 'true');
+			checkoutModalError.textContent = '';
 		}
 
 		function showNotification(message, type = 'info') {
@@ -1268,15 +1412,9 @@
 		// Sync cart badge and list on load (e.g. when coming from homepage)
 		updateCartUI();
 
-		async function submitCartAndCheckout() {
+		async function submitCartAndCheckout(username) {
 			if (!cart.length) {
 				showNotification('Your cart is empty', 'error');
-				return;
-			}
-
-			const username = (prompt('Enter username for checkout:') || '').trim();
-			if (!username) {
-				showNotification('Username is required for checkout', 'error');
 				return;
 			}
 
@@ -1301,7 +1439,48 @@
 			}
 		}
 
-		document.querySelector('.cart-checkout').addEventListener('click', submitCartAndCheckout);
+		function handleCheckoutConfirm() {
+			const username = checkoutUsernameInput.value.trim();
+			if (!username) {
+				checkoutModalError.textContent = 'Username is required for checkout.';
+				checkoutUsernameInput.focus();
+				return;
+			}
+
+			closeCheckoutModal();
+			submitCartAndCheckout(username);
+		}
+
+		document.querySelector('.cart-checkout').addEventListener('click', () => {
+			if (!cart.length) {
+				showNotification('Your cart is empty', 'error');
+				return;
+			}
+
+			closeCart();
+			openCheckoutModal();
+		});
+
+		checkoutCancel.addEventListener('click', closeCheckoutModal);
+		checkoutConfirm.addEventListener('click', handleCheckoutConfirm);
+		checkoutModal.addEventListener('click', (event) => {
+			if (event.target === checkoutModal) {
+				closeCheckoutModal();
+			}
+		});
+
+		checkoutUsernameInput.addEventListener('input', () => {
+			if (checkoutModalError.textContent) {
+				checkoutModalError.textContent = '';
+			}
+		});
+
+		checkoutUsernameInput.addEventListener('keydown', (event) => {
+			if (event.key === 'Enter') {
+				event.preventDefault();
+				handleCheckoutConfirm();
+			}
+		});
 
 		// --- Scroll to Contact Function ---
 		function scrollToContact(event) {
@@ -1333,6 +1512,12 @@
 
 		// Initialize navbar on page load
 		document.addEventListener('DOMContentLoaded', initNavbar);
+
+		document.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape' && checkoutModal.classList.contains('active')) {
+				closeCheckoutModal();
+			}
+		});
 	</script>
 </body>
 

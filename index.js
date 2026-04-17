@@ -310,12 +310,6 @@ function renderCheckoutPage(username, tableRows, htmlRows, totalDue) {
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
         </button>
-        <button class="nav-icon-btn" aria-label="Profile">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-        </button>
       </div>
     </nav>
   </header>
